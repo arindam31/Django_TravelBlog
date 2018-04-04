@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<form method='POST' enctype="multipart/form-data">
+	{% csrf_token %}
+	<p><h1>Title {{form.title}}</h1></p>
+	<hr>
+	<p>{{form.text}}</p>
+	<p>{{form.author }}</p>
+
+<hr>
+<input type="submit" name="Save" value="Save" class='button'>	
+</form>
+{% endblock %}

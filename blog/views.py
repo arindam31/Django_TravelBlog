@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.utils import timezone
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from . import models
 from . import forms
 
@@ -22,7 +22,10 @@ def create_post(request):
     if request.method == 'POST':
         form = forms.BlogPostForm(request.POST)
         if form.is_valid():
-            form.save()
-        return HttpResponse('Well done!')
+            post = form.save(commit=False)
+            post.save()
+        # Below redirection is also an example of how I can redirect to the post I just created.
+        return HttpResponseRedirect(post.get_absolute_url())
+    return render(request, 'blog/post_create.html', {'form':form})
 
 
