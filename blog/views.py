@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.utils import timezone
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.contrib.auth import authenticate, login
 from . import models
 from . import forms
 
@@ -18,19 +19,34 @@ def post_details(request, post_pk):
     return render(request, 'blog/post_details.html', {'post': post })
 
 def create_post(request):
+    #This will help us control who has permission to create posts
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     form = forms.BlogPostForm()
     if request.method == 'POST':
-        print 'IS POST'
         form = forms.BlogPostForm(request.POST)
         if form.is_valid():
-            print 'IS VALID'
             post = form.save(commit=False)
             post.save()
-            print 'SAVED'
             # Below redirection is also an example of how I can redirect to the post I just created.
             return HttpResponseRedirect(post.get_absolute_url())
-        else:
-            print 'Form is NOT VALID'
     return render(request, 'blog/post_create.html', {'form':form})
+
+def edit_post(request, post_pk):
+    #This will help us control who has permission to create posts
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+    post = models.Post.objects.get(pk=post_pk)
+    form = forms.BlogPostForm(instance=post)
+
+    if request.method == 'POST':
+        form = forms.BlogPostForm(data=request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(post.get_absolute_url())
+    return render(request, 'blog/post_create.html', {'form':form})
+
+
+
 
 

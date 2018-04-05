@@ -3,4 +3,7 @@
 <h1>{{post.title}}</h1>
 <p>{{post.text | safe }}</p>
 <p>Created On: {{post.created_date}}
+{% if request.user.is_authenticated or request.user.is_staff %}
+	<p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" role="button">Edit POST</a></p>
+{% endif %}
 {% endblock %}
