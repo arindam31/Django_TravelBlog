@@ -3,7 +3,7 @@
         {% for post in posts %}
             <div class="post">
 		    <h1><a href="{% url 'post_details' post.pk %}">{{ post.title }}</a> </h1>
-                <p>{{ post.text|linebreaksbr }} </p>
+                <p>{{ post.text| safe | linebreaksbr }} </p>
                 <p><strong>{{ post.author }}</strong></p>
                 <div class="date">
                     <p><strong>{{ post.created_date }}</strong></p>

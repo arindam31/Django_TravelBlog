@@ -20,12 +20,17 @@ def post_details(request, post_pk):
 def create_post(request):
     form = forms.BlogPostForm()
     if request.method == 'POST':
+        print 'IS POST'
         form = forms.BlogPostForm(request.POST)
         if form.is_valid():
+            print 'IS VALID'
             post = form.save(commit=False)
             post.save()
-        # Below redirection is also an example of how I can redirect to the post I just created.
-        return HttpResponseRedirect(post.get_absolute_url())
+            print 'SAVED'
+            # Below redirection is also an example of how I can redirect to the post I just created.
+            return HttpResponseRedirect(post.get_absolute_url())
+        else:
+            print 'Form is NOT VALID'
     return render(request, 'blog/post_create.html', {'form':form})
 
 
