@@ -4,13 +4,17 @@ from django.utils import timezone
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.auth import authenticate, login
+from django.db.models import Q
 from . import models
 from . import forms
 
 
 # Create your views here.
 def post_list(request):
-    posts =models.Post.objects.filter(created_date__lte=timezone.now()).order_by('published_date')
+    if not request.user.is_staff or not request.user.is_superuser:
+        posts = models.Post.objects.filter(published=True, created_date__lte=timezone.now()).order_by('published_date')
+    else:
+        posts = models.Post.objects.filter(created_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts':posts})
 
 
@@ -45,6 +49,21 @@ def edit_post(request, post_pk):
             form.save()
             return HttpResponseRedirect(post.get_absolute_url())
     return render(request, 'blog/post_create.html', {'form':form})
+
+def search_post(request):
+    if request.method == 'GET':
+        keyword = request.GET.get('keyword')
+        if not keyword:
+            raise Http404
+        else:
+            posts = models.Post.objects.filter(
+            Q(title__icontains=keyword) | Q(text__icontains=keyword), 
+            created_date__lte=timezone.now(), 
+            ).order_by('published_date')
+
+    return render(request, 'blog/post_list.html', {'posts':posts})    
+
+
 
 
 

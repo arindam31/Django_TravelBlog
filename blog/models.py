@@ -12,6 +12,7 @@ class Post(models.Model):
 	text = RichTextField()
 	created_date = models.DateTimeField(default=timezone.now)
 	published_date = models.DateTimeField(blank=True, null=True)
+	published = models.BooleanField(default=False)
 
 	def publish(self):
 		self.published_date = timezone.now()
