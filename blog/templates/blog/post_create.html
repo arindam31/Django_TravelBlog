@@ -3,11 +3,8 @@
 
 <form method='POST' enctype="multipart/form-data">
 	{% csrf_token %}
-	<p><h1>Title {{form.title}}</h1></p>
-	<hr>
 	{{ form.media }}
-	<p>{{form.text}}</p>
-	<p>{{form.author }}</p>
+	{{ form.as_p }}
 
 <hr>
 <input type="submit" name="Save" value="Save" class='button'>	

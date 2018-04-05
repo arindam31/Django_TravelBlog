@@ -24,9 +24,6 @@ urlpatterns = [
     url(r'', include('blog.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),   
-]  + static(
-        settings.STATIC_URL,
-        document_root=settings.STATIC_ROOT
-    ) + static(
+]   + static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT)
