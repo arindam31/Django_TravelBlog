@@ -1,6 +1,5 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-{{ post.media }}
 <h1>{{post.title}}</h1>
 <p>{{post.text | safe | linebreaksbr }}</p>
 <p>Created On: {{post.created_date}}
