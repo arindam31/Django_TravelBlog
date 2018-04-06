@@ -64,7 +64,7 @@ def search_post(request):
     return render(request, 'blog/post_list.html', {'posts':posts})    
 
 def like_post(request):
-    print 'Came here'
+    #This function updates a part of HTML
     post_id = None
     if request.method == 'GET':
         post_id = request.GET['post_id']
@@ -78,7 +78,7 @@ def like_post(request):
             post.likes = likes
             post.save()
 
-    return HttpResponse(likes)
+    return HttpResponse("<p>No of Likes : %s </p>" % likes)
 
 
 
