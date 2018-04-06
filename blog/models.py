@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 class Post(models.Model):
@@ -13,6 +14,7 @@ class Post(models.Model):
 	created_date = models.DateTimeField(default=timezone.now)
 	published_date = models.DateTimeField(blank=True, null=True)
 	published = models.BooleanField(default=False)
+	likes = models.PositiveIntegerField(default=0)
 
 	def publish(self):
 		self.published_date = timezone.now()

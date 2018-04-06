@@ -9,5 +9,6 @@ urlpatterns = [
 	url(r'^post/create/$', views.create_post, name='post_create'),
 	url(r'^post/edit/(?P<post_pk>\d+)$', views.edit_post, name='post_edit'),
 	url(r'^search/post/$', views.search_post, name='post_search'),
+	url(r'^post/like/$', views.like_post, name='like_post'),
 ]
 

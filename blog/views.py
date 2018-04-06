@@ -63,6 +63,23 @@ def search_post(request):
 
     return render(request, 'blog/post_list.html', {'posts':posts})    
 
+def like_post(request):
+    print 'Came here'
+    post_id = None
+    if request.method == 'GET':
+        post_id = request.GET['post_id']
+
+    likes = 0
+
+    if post_id:
+        post = models.Post.objects.get(id=int(post_id))
+        if post:
+            likes = post.likes + 1
+            post.likes = likes
+            post.save()
+
+    return HttpResponse(likes)
+
 
 
 
