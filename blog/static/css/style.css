@@ -1,0 +1,53 @@
+header {
+	margin: 2rem 0;
+}
+
+#featured {
+	margin-bottom:2rem;
+}
+
+.carousel-item {
+	height:500px;
+	background: #90F;
+}
+.carousel-item:nth-child(2) {
+	background:#09F;
+}
+.carousel-item:nth-child(3) {
+	background:#0F9;
+}
+
+.profile-info img {
+	max-width:6rem;
+	max-height:6rem;
+	border-radius:1rem;
+	margin: -0.5rem 1rem 0 0;
+}
+
+.gallery a {
+	width:48%;
+	margin: 1%;
+	height: 10rem;
+	background: #99F;
+	display:block;
+	}
+
+.gallery {
+	margin:2rem -1% 0; /* Top Left-Right Bottom */
+}
+
+@media all and (min-width: 576px){
+	.gallery a {
+		width: 31.3%;
+	}
+}
+@media all and (min-width: 992px){
+	.gallery a {
+		width: 31.3%;
+	}
+}
+@media all and (min-width: 576px){
+	.gallery a {
+		width: 23%;
+	}
+}
