@@ -4,13 +4,13 @@
 <p>{{post.text | safe | linebreaksbr }}</p>
 <p>Created On: {{post.created_date}}
 {% if request.user.is_authenticated or request.user.is_staff %}
-	<p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" role="button">Edit POST</a></p>
+	<p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" imgrole="button">Edit POST</a></p>
 {% endif %}
 
 <div id="like_count">
 	<p>No of Likes : {{ post.likes }}</p>
 </div>
 
-<button data-catid="{{post.id}}" id="likes"  class="btn btn-primary">Like Me</button>
+<button data-catid="{{post.id}}" id="likes"  class="btn btn-primary"><img src="/media/hand3.png"></button>
 
 {% endblock %}
