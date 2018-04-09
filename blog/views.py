@@ -80,6 +80,8 @@ def like_post(request):
 
     return HttpResponse("<p>No of Likes : %s </p>" % likes)
 
+def home(request):
+    return render(request, 'blog/home_new.html')
 
 
 
