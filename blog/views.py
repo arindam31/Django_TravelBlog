@@ -81,10 +81,14 @@ def like_post(request):
     return HttpResponse("<p>No of Likes : %s </p>" % likes)
 
 def home(request):
-    return render(request, 'blog/home_new.html')
+    fav_posts = get_favourites()
+    print fav_posts
+    return render(request, 'blog/home_new.html', {'fav_posts':fav_posts})
 
 
-
+def get_favourites():
+    #This function returns a list of post with fav as True
+    return models.Post.objects.filter(published=True, favourite=True)
 
 
 

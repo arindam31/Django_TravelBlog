@@ -47,6 +47,12 @@ header {
 	display:block;
 	}
 
+.gallery img{
+	max-width: 100%;
+	max-height: 100%;
+	
+}	
+
 .gallery {
 	margin:2rem -1% 0; /* Top Left-Right Bottom */
 }
