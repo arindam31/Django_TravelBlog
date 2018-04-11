@@ -28,7 +28,7 @@
 	
 	<section class="gallery d-flex flex-wrap">
 		{% for post in fav_posts %}
-			<a href="{% url 'post_details' post.pk %}"><img src="media/Me_Kashmir.jpg">{{ post.title }}</a>
+			<a href="{% url 'post_details' post.pk %}"><img src={{ post.first_image }}>{{ post.title }}</a>
 		{% endfor %}
 	</section>
 
