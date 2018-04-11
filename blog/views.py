@@ -90,8 +90,6 @@ def home(request):
             post.first_image = first_image
         else:
             post.first_image = '#'
-        print '-----------------------------'
-        print post.title, post.first_image
     return render(request, 'blog/home_new.html', {'fav_posts':fav_posts})
 
 
@@ -103,9 +101,10 @@ def get_images_from_post_description(post_pk):
     post = models.Post.objects.get(pk=post_pk)
     des = post.text
     #first_image = re.findall('(?<=src=")https.*jpg', des)
-    first_image = re.findall('(?<=src=").*jpg', des)
-    if first_image:
-        return first_image[0]
+    images = re.findall('(?<=src=").*jpg', des)
+    images =  sorted(images)
+    if images:
+        return images[0]
     return False
 
 
