@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework'
 ]
 
 
@@ -145,3 +146,13 @@ CKEDITOR_CONFIGS = {
 }
 
 ###################################
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':( # Find USER
+        'rest_framework.authentication.SessionAuthentication',
+        ),
+    'DEFAULT_PERMISSION_CLASSES': ( #User can DO this and that
+        'rest_framework.permissions.IsAuthenticatedReadOnly',
+
+        )
+}
