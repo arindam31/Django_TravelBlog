@@ -13,6 +13,23 @@
 
 <button data-catid="{{post.id}}" id="likes"  class="btn btn-primary"><img src="/media/hand3.png"></button>
 
+<br>
+<br>
+<h1>Comments</h1>
+
+<hr class="">
+	{% for comment in post.comments.all %}
+	{% if comment.approve_comment %}
+<div class="comment">
+	<div class="date">
+		{{ comment.created_date }}
+	</div>
+	<p>{{ comment.detail|linebreaks }}</p>
+	{% endif %}
+	{% endfor %}
+
+</div>	
+
 <script type="text/javascript">
 //var body = document.getElementById('webBody');
 //body.setAttribute("background", "/media/Aru_Valley.jpg");
