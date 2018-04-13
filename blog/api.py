@@ -6,5 +6,5 @@ from . import models
 class ListPostApi(APIView):
     def get(self, request, format=None):
         posts = models.Post.objects.all()
-        serializer = serializers.PostSerializers(posts, many=True)
+        serializer = serializers.PostSerializers(posts, many=True) #If its a query list, many = True
         return Response(serializer.data)
