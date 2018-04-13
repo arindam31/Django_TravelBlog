@@ -27,6 +27,8 @@ urlpatterns = [
                                 ),
     url(r'', include('blog.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),   
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/v1/posts/', include('blog.api_url')),
 ]   + static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT)
