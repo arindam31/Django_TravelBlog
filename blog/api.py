@@ -6,6 +6,7 @@ from . import serializers
 from . import models
 
 class ListPostApi(APIView):
+    #This class is not used ..we use the below class now
     def get(self, request, format=None):
         posts = models.Post.objects.all()
         serializer = serializers.PostSerializers(posts, many=True) #If its a query list, many = True
@@ -20,3 +21,10 @@ class ListPostApi(APIView):
 class PostCreateApi(generics.ListCreateAPIView):
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializers
+
+
+class RetriveUpdateDestropPost(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializers
+
+
