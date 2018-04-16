@@ -1,0 +1,96 @@
+header {
+	margin: 2rem 0;
+}
+
+.navbar-default {
+    background-color: #14AAF0;
+    border-color: #E7E7E7;
+    color: #FFFFFF; /* This is for the left text in navbar */
+    border-radius: 1rem !important;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #FFFFFF; /* This is for items on the right of navbar */
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    color: #555555;
+}
+
+#featured {
+	margin-bottom:2rem;
+}
+
+.carousel-item {
+	height:500px;
+	background: #90F;
+}
+.carousel-item:nth-child(2) {
+	background:#09F;
+}
+.carousel-item:nth-child(3) {
+	background:#0F9;
+}
+
+.profile-info img {
+	max-width:6rem;
+	max-height:6rem;
+	border-radius:1rem;
+	margin: -0.5rem 1rem 0 0;
+}
+
+.gallery a {
+	width:48%;
+	margin: 1%;
+	height: 10rem;
+	background: #E7E7E7;
+	display:block;
+	}
+
+.gallery img {
+	max-width: 100%;
+	max-height: 100%;
+	-webkit-box-reflect: below 0px -webkit-gradient(linear,
+	 left top, left bottom, from(transparent), to(rgba(250, 250, 250, 0.2)));
+	
+}	
+
+.gallery img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.8);
+}
+
+.gallery {
+	margin:2rem -1% 0; /* Top Left-Right Bottom */
+}
+
+@media all and (min-width: 576px){
+	.gallery a {
+		width: 31.3%;
+	}
+}
+@media all and (min-width: 992px){
+	.gallery a {
+		width: 31.3%;
+	}
+}
+@media all and (min-width: 576px){
+	.gallery a {
+		width: 23%;
+	}
+}
+
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+
+hr { /* This is horizontal line..Below are the bootstrap properties for a hr class */
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+  border-style: solid none;
+  border-width: 2px 0;
+  margin: 18px 0;
+}
