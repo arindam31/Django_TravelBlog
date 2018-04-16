@@ -94,3 +94,31 @@ hr { /* This is horizontal line..Below are the bootstrap properties for a hr cla
   border-width: 2px 0;
   margin: 18px 0;
 }
+
+
+.cover {
+  margin-top:10rem;
+  padding: 0 1.5rem;
+}
+
+.error_heading {
+	font-size:80px;
+	font-weight:400;
+	color:#000;
+
+}
+
+.lead h3{
+	margin:30px 0px;
+	font-size:28px;
+	font-weight:400;
+	color:#000;
+}
+
+.home_button_error_page {
+	display:inline-block;
+	color:#000;
+	border:1px solid #000;
+	padding:7px 15px;
+	margin-bottom:30px;
+}

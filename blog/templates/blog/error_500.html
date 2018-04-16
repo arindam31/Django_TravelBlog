@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="text-center">
+<div class="container  d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+<main role="main" class="inner cover">
+        <h1 class="cover-heading error_heading">OOPS ! 500 !!!!</h1>
+        <p class="lead">
+        <h3>There is a chance , something is wrong with my code. But I will fix this ASAP. Sorry for the inconvinience</h3></p>
+        <p class="lead">
+          <a href="{% url 'home' %}" class="btn btn-lg btn-secondary">Let's go Home</a>
+        </p>
+ </main>
+
+
+</div>
+</div>
+
+<script type="text/javascript">
+var body = document.getElementById('webBody');
+var header = document.querySelector('header');
+body.setAttribute("background", "/media/Rajasthan_1.jpg");
+header.style.display = "none";
+</script>
+{% endblock %}

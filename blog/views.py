@@ -107,6 +107,10 @@ def get_images_from_post_description(post_pk):
         return images[0]
     return False
 
+def error_404(request):
+    data = {}
+    return render(request, 'blog/error_404.html')
 
-
-
+def error_500(request):
+    data = {}
+    return render(request, 'blog/error_500.html')
