@@ -2,9 +2,10 @@
 <html>
     <head>
 
-        <title>My Blog</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+        {% block head %}
+        {% endblock %}
 
     </head>
     <body background="#" id="webBody" >
@@ -24,7 +25,7 @@
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="{% url 'about_me' %}">AboutMe</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Gallery</a>
@@ -40,8 +41,7 @@
         	    	{% block content %}
 			    	{% endblock %}
 			
-			
-		</div>	
+		</div>
 
         <!-- jQuery CDN -->
         

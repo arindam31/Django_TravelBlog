@@ -114,3 +114,6 @@ def error_404(request):
 def error_500(request):
     data = {}
     return render(request, 'blog/error_500.html')
+
+def about_me(request):
+    return render(request, 'blog/about_me.html')
