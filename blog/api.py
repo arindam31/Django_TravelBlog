@@ -23,7 +23,18 @@ class PostCreateApi(generics.ListCreateAPIView):
     serializer_class = serializers.PostSerializers
 
 
-class RetriveUpdateDestropPost(generics.RetrieveUpdateDestroyAPIView):
+class RetriveUpdateDestroyPost(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializers
+
+class ListCreateComment(generics.ListCreateAPIView):
+    queryset = models.Comment.objects.all()
+    serializer_class = serializers.CommentSerializers
+
+    def get_queryset(self):
+        return self.queryset.filter(post_id=self.kwargs.get('post_pk'))
+
+class RetriveUpdateDestroyComment(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializers
 
