@@ -35,7 +35,13 @@ def create_post(request):
             post = form.save(commit=False)
             post.save()
             # Below redirection is also an example of how I can redirect to the post I just created.
-            return HttpResponseRedirect(post.get_absolute_url())
+            #return HttpResponseRedirect(post.get_absolute_url())
+            return HttpResponseRedirect(
+                reverse(
+                    'post_details', 
+                        args=(post.pk,)
+                        )
+                )
     return render(request, 'blog/post_create.html', {'form':form})
 
 def edit_post(request, post_pk):
