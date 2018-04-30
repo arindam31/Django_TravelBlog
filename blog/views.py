@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import re
 
 from django.utils import timezone
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
@@ -19,10 +19,25 @@ def post_list(request):
         posts = models.Post.objects.filter(created_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts':posts})
 
+def get_redirected(queryset_or_class, lookups, validators):
+    """
+    Calls get_object_or_404 and conditionally builds redirect URL
+    """
+    obj = get_object_or_404(queryset_or_class, **lookups)
+    for key, value in validators.items():
+        if value != getattr(obj, key):
+            return obj, obj.get_absolute_url()
+    return obj, None
 
-def post_details(request, post_pk):
-    post = models.Post.objects.get(pk=post_pk)
-    return render(request, 'blog/post_details.html', {'post': post })
+
+def post_details(request, slug, post_pk):
+    #post = models.Post.objects.get(pk=post_pk)
+    post, post_url = get_redirected(models.Post, {'pk':post_pk}, {'slug': slug })
+    #return render(request, 'blog/post_details.html', {'post': post })
+    if post_url:
+        return HttpResponseRedirect(post_url)
+    else:
+        return render(request, 'blog/post_details.html', {'post': post })
 
 def create_post(request):
     #This will help us control who has permission to create posts
@@ -34,14 +49,17 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-            # Below redirection is also an example of how I can redirect to the post I just created.
-            #return HttpResponseRedirect(post.get_absolute_url())
-            return HttpResponseRedirect(
-                reverse(
-                    'post_details', 
-                        args=(post.pk,)
-                        )
-                )
+            post, post_url = get_redirected(models.Post, {'pk':post.pk}, {'slug': post.slug })
+            if post_url:
+                return HttpResponseRedirect(post_url)
+            else:
+                return render(request, 'blog/post_details.html', {'post': post })
+            #return HttpResponseRedirect(
+            #    reverse(
+            #        'post_details', 
+            #            args=(post.pk,)
+            #            )
+            #    )
     return render(request, 'blog/post_create.html', {'form':form})
 
 def edit_post(request, post_pk):
