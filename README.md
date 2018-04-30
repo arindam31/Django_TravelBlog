@@ -18,8 +18,9 @@ URL : http://arindam31.pythonanywhere.com
    Shows favourite posts, NavBar with search (on title and description)
    
 2) ## Post details Page: 
-   Shows post details with a like button showing a count of likes . 
-   Shows approved comments at the bottom (if any).
+   * Shows post details with a like button showing a count of likes . 
+   * Shows approved comments at the bottom (if any).
+   * Post Details URL is human friendly.
    
 3) ## Post Add & Edit: 
    If user is logged in (via Django Admin), user can add a Post from frontend form.
