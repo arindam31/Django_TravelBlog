@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.template.defaultfilters import slugify
 
 
 class Tag(models.Model):
@@ -24,18 +25,24 @@ class Post(models.Model):
 	likes = models.PositiveIntegerField(default=0)
 	favourite = models.BooleanField(default=False)
 	tags = models.ManyToManyField(Tag, blank=True)
+	slug = models.SlugField(max_length=100, blank=False)
 
 	def publish(self):
 		self.published_date = timezone.now()
 		self.published = True
 		self.save()
 
+	#def get_absolute_url(self):
+	#	return reverse(
+	#			'post_details', 
+	#		kwargs={'post_pk':self.id}
+	#			)
+
 	def get_absolute_url(self):
 		return reverse(
-			'post_details', 
-			kwargs={'post_pk':self.id}
+			'post_details',
+			kwargs={'slug': self.slug, 'post_pk': self.id }
 			)
-
 
 	def __str__(self):
 		return self.title
