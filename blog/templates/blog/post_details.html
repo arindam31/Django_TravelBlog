@@ -16,13 +16,22 @@
 <br>
 <br>
 
-<div id="loginArea">
-
-</div>
+<form>
+	<div id="commentBox" class="form-group">
+		<input class="form-control input-lg" type="text" name="commentbox">
+	</div>
+	<div class="form-group">
+	{% if request.user.is_authenticated %}
+		<button class="btn btn-primary">Post Comment</button>
+	{% else %}
+		<button class="btn btn-primary">Login</button>
+	{% endif %}
+	</div>
+</form>
 
 <h1>Comments [{{ post.comments.count }}]</h1>
 
-<hr class="">
+<hr class="hr">
 	{% for comment in post.comments.all %}
 	{% if comment.approve_comment %}
 <div class="comment">
