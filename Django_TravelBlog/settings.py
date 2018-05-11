@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.github',
 ]
 
@@ -136,10 +134,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-SITE_ID = 1
-ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = False
-ACCONT_LOGIN_ON_EMAIL_CONFIRMATION = False
+SITE_ID = 2
+#LOGIN_REDIRECT_URL = '/'
 
 
 ####################################

@@ -1,6 +1,11 @@
 {% extends 'blog/base.html' %}
+{% load account socialaccount %}
+{% load i18n %}
+
 {% block content %}
+
 <h1>{{post.title}}</h1>
+
 {% if request.user.is_authenticated or request.user.is_staff %}
 	<p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" imgrole="button">Edit POST</a></p>
 {% endif %}
@@ -16,6 +21,16 @@
 <br>
 <br>
 
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+	<p>{% blocktrans with site.name as site_name %} Please sign in with one
+	of your existing third party accounts.
+	Or, <a href="{{ signup_url }}">sign up</a>
+	for a {{ site_name }} account and sign in below:
+	{% endblocktrans %}</p>
+{% endif %}
+
 <form>
 	<div id="commentBox" class="form-group">
 		<input class="form-control input-lg" type="text" name="commentbox">
@@ -23,8 +38,6 @@
 	<div class="form-group">
 	{% if request.user.is_authenticated %}
 		<button class="btn btn-primary">Post Comment</button>
-	{% else %}
-		<button class="btn btn-primary">Login</button>
 	{% endif %}
 	</div>
 </form>
