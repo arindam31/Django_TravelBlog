@@ -23,6 +23,15 @@
 
 {% get_providers as socialaccount_providers %}
 
+<p>-----------------------------------------</p>
+
+{% user_display user %}
+<br>
+
+{% user_display user as user_display %}
+{% blocktrans %}{{ user_display }} has logged in...{% endblocktrans %}
+<p>-----------------------------------------</p>
+
 {% if socialaccount_providers %}
 	<p>{% blocktrans with site.name as site_name %} Please sign in with one
 	of your existing third party accounts.
@@ -31,13 +40,34 @@
 	{% endblocktrans %}</p>
 {% endif %}
 
-<form>
+
+{% for provider in socialaccount_providers %}
+{% if provider.id == "openid" %}
+{% for brand in provider.get_brands %}
+<li>
+  <a title="{{brand.name}}" 
+     class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+     href="{% provider_login_url provider.id openid=brand.openid_url process=process next="{{ next }}" %}"
+     >{{brand.name}}</a>
+</li>
+{% endfor %}
+{% endif %}
+
+<li>
+  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+</li>
+{% endfor %}
+
+
+<form method="post">
 	<div id="commentBox" class="form-group">
 		<input class="form-control input-lg" type="text" name="commentbox">
 	</div>
 	<div class="form-group">
 	{% if request.user.is_authenticated %}
-		<button class="btn btn-primary">Post Comment</button>
+		<a href="/accounts/logout/">Logout</a>
+		<a href="{% url 'post_comment' post.pk %}" class="btn btn-primary">Post Comment</a>
 	{% endif %}
 	</div>
 </form>

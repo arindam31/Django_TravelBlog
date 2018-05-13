@@ -106,6 +106,11 @@ def like_post(request):
 
     return HttpResponse("<p>No of Likes : %s </p>" % likes)
 
+def post_comment(request, post_pk):
+    if request.method == 'POST':
+        post = models.Post.objects.get(id=post_pk)
+        comment = models.Comment.objects.create(post=post, detail=request.POST)
+
 def home(request):
     fav_posts = get_favourites()
     for post in fav_posts:
