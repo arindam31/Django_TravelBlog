@@ -34,10 +34,24 @@ def post_details(request, slug, post_pk):
     #post = models.Post.objects.get(pk=post_pk)
     post, post_url = get_redirected(models.Post, {'pk':post_pk}, {'slug': slug })
     #return render(request, 'blog/post_details.html', {'post': post })
+
+    form = forms.CommentForm()
+
     if post_url:
         return HttpResponseRedirect(post_url)
     else:
-        return render(request, 'blog/post_details.html', {'post': post })
+
+        if request.method == 'POST':
+            print 'We are inside POST of comment create'
+            form = forms.CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.post = post
+                comment.save()
+        else:
+            print 'We are inside GET of comment create'
+            form = forms.CommentForm()
+        return render(request, 'blog/post_details.html', {'post': post, 'form_comment': form })
 
 def create_post(request):
     #This will help us control who has permission to create posts
@@ -56,7 +70,7 @@ def create_post(request):
                 return render(request, 'blog/post_details.html', {'post': post })
             #return HttpResponseRedirect(
             #    reverse(
-            #        'post_details', 
+            #        'post_details',
             #            args=(post.pk,)
             #            )
             #    )
@@ -83,11 +97,11 @@ def search_post(request):
             raise Http404
         else:
             posts = models.Post.objects.filter(
-            Q(title__icontains=keyword) | Q(text__icontains=keyword), 
-            created_date__lte=timezone.now(), 
+            Q(title__icontains=keyword) | Q(text__icontains=keyword),
+            created_date__lte=timezone.now(),
             ).order_by('published_date')
 
-    return render(request, 'blog/post_list.html', {'posts':posts})    
+    return render(request, 'blog/post_list.html', {'posts':posts})
 
 def like_post(request):
     #This function updates a part of HTML
@@ -107,9 +121,22 @@ def like_post(request):
     return HttpResponse("<p>No of Likes : %s </p>" % likes)
 
 def post_comment(request, post_pk):
+    print 'Idhar to aya'
+    post = get_object_or_404(models.Post, pk=post_pk)
+    form = forms.CommentForm()
     if request.method == 'POST':
-        post = models.Post.objects.get(id=post_pk)
-        comment = models.Comment.objects.create(post=post, detail=request.POST)
+        print 'We are inside POST of comment create'
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+
+    else:
+        print 'We are inside GET of comment create'
+        form = forms.CommentForm()
+
+    return HttpResponseRedirect(post.get_absolute_url())
 
 def home(request):
     fav_posts = get_favourites()

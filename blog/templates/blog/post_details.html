@@ -45,8 +45,8 @@
 {% if provider.id == "openid" %}
 {% for brand in provider.get_brands %}
 <li>
-  <a title="{{brand.name}}" 
-     class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+  <a title="{{brand.name}}"
+     class="socialaccount_provider {{provider.id}} {{brand.id}}"
      href="{% provider_login_url provider.id openid=brand.openid_url process=process next="{{ next }}" %}"
      >{{brand.name}}</a>
 </li>
@@ -54,20 +54,21 @@
 {% endif %}
 
 <li>
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
      href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
 </li>
 {% endfor %}
 
 
-<form method="post">
-	<div id="commentBox" class="form-group">
-		<input class="form-control input-lg" type="text" name="commentbox">
+<form method="POST" action="{% url 'comment_create' post_pk=post.pk %}">
+	<div class="form-group">
+		{% csrf_token %}
+		{{ form_comment.as_p }}
 	</div>
 	<div class="form-group">
 	{% if request.user.is_authenticated %}
 		<a href="/accounts/logout/">Logout</a>
-		<a href="{% url 'post_comment' post.pk %}" class="btn btn-primary">Post Comment</a>
+		<button type="submit"  class="btn btn-primary">Post Comment</button>
 	{% endif %}
 	</div>
 </form>
@@ -77,15 +78,18 @@
 <hr class="hr">
 	{% for comment in post.comments.all %}
 	{% if comment.approve_comment %}
-<div class="comment">
-	<div class="date">
-		{{ comment.created_date }}
-	</div>
-	<p>{{ comment.detail|linebreaks }}</p>
+		<div class="comment">
+			<div class="date">
+				{{ comment.created_date }}
+			</div>
+			<strong>{{comment.post.author}}</strong>
+			<p>{{ comment.detail|linebreaks }}</p>
+		</div>
 	{% endif %}
-	{% endfor %}
+	{% empty %}
+    	<p>No comments here yet :(</p>
+    {% endfor %}
 
-</div>
 
 <script type="text/javascript">
 //var body = document.getElementById('webBody');

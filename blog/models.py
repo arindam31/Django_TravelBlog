@@ -34,7 +34,7 @@ class Post(models.Model):
 
 	#def get_absolute_url(self):
 	#	return reverse(
-	#			'post_details', 
+	#			'post_details',
 	#		kwargs={'post_pk':self.id}
 	#			)
 
@@ -57,6 +57,12 @@ class Comment(models.Model):
 	def approve(self):
 		self.approve_comment = True
 		self.save()
+
+	def get_absolute_url(self):
+		return reverse(
+			'post_details',
+			kwargs={'slug': self.post.slug, 'post_pk': self.post.pk }
+			)
 
 	def __str__(self):
 		return self.detail
