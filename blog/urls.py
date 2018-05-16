@@ -7,7 +7,8 @@ from . import views
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
 	url(r'^posts/$', views.post_list, name='post_list'),
-	url(r'^post/(?P<post_pk>\d+)/comment/$', views.post_comment, name='comment_create'),
+	#url(r'^post/(?P<post_pk>\d+)/comment/$', views.post_comment_on_fly, name='comment_create'),
+	url(r'^post/comment/$', views.post_comment_on_fly, name='comment_create'),
 	url(r'^post/(?P<post_pk>\d+)/edit/$', views.edit_post, name='post_edit'),
 	url(r'^post/about_me/$', views.about_me, name='about_me'),
 	url(r'^post/(?P<post_pk>\d+)/(?P<slug>[-\w\d]+)/$', views.post_details, name='post_details'),

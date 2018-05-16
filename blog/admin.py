@@ -11,8 +11,7 @@ class PostAdmin(admin.ModelAdmin):
 	list_editable = ['favourite', 'published']
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['detail', 'post', 'created_date', 'approve_comment']
-    list_editable = ['approve_comment', ]
+    list_display = ['detail', 'post', 'created_date']
 
 # Register your models here.
 admin.site.register(models.Post, PostAdmin)

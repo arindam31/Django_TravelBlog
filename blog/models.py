@@ -52,7 +52,6 @@ class Comment(models.Model):
 	post = models.ForeignKey(Post, related_name='comments')
 	detail = models.TextField()
 	created_date = models.DateTimeField(default=timezone.now)
-	approve_comment = models.BooleanField(default=False)
 
 	def approve(self):
 		self.approve_comment = True

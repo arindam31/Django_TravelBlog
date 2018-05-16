@@ -6,17 +6,23 @@
 
 <h1>{{post.title}}</h1>
 
+<!-- This section is for the EDIT POST button -->
 {% if request.user.is_authenticated or request.user.is_staff %}
 	<p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" imgrole="button">Edit POST</a></p>
 {% endif %}
+<!-- Section Ends -->
+
 <p>{{post.text | safe | linebreaksbr }}</p>
 <p>Created On: {{post.created_date}}
 
+<!-- This section is for the LIKE BUTTON -->
 <div id="like_count">
 	<p>No of Likes : {{ post.likes }}</p>
 </div>
 
 <button data-catid="{{post.id}}" id="likes"  class="btn btn-primary"><img src="/media/hand3.png"></button>
+
+<!-- Section Ends -->
 
 <br>
 <br>
@@ -59,37 +65,42 @@
 </li>
 {% endfor %}
 
-
-<form method="POST" action="{% url 'comment_create' post_pk=post.pk %}">
+{% if request.user.is_authenticated %}
+	{% csrf_token %}
+	<!-- This section is for COMMENT BOX and button  -->
 	<div class="form-group">
-		{% csrf_token %}
-		{{ form_comment.as_p }}
+		<input type="text" name="CommentBox" class="form-control" id="CommentBox"/>
 	</div>
 	<div class="form-group">
-	{% if request.user.is_authenticated %}
-		<a href="/accounts/logout/">Logout</a>
-		<button type="submit"  class="btn btn-primary">Post Comment</button>
-	{% endif %}
+		<button type="submit" data-post-pk="{{post.pk}}" class="btn btn-primary" id="post_comment">Post Comment</button>
+		<a class="btn btn-danger" href="/accounts/logout/">Logout</a>
 	</div>
-</form>
+{% endif %}
+	<!-- Section Ends -->
 
+<!-- This section is for COMMENTS DISPLAY and button  -->
 <h1>Comments [{{ post.comments.count }}]</h1>
 
+<div  id="comment-list">
 <hr class="hr">
+	<ul>
 	{% for comment in post.comments.all %}
-	{% if comment.approve_comment %}
+		<li>
 		<div class="comment">
+
 			<div class="date">
 				{{ comment.created_date }}
 			</div>
-			<strong>{{comment.post.author}}</strong>
-			<p>{{ comment.detail|linebreaks }}</p>
+			<p>{{ comment.detail }} : by <strong>{{comment.post.author}}</strong></p>
 		</div>
-	{% endif %}
+		</li>
 	{% empty %}
+
     	<p>No comments here yet :(</p>
     {% endfor %}
-
+	</ul>
+</div>
+<!-- Section ends  -->
 
 <script type="text/javascript">
 //var body = document.getElementById('webBody');
