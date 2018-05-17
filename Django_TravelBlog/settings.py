@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8ht8yamzqd3%u1yztx_xe88a!*528&j+1zmy((a))cr=9o7-0^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '172.29.169.103']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '172.29.169.103', 'localhost']
 
 
 # Application definition
@@ -37,10 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'blog',
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
 
 
@@ -129,6 +134,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+
+
+####################################
+    ##  CKEDITOR CONFIGURATION ##
+####################################
+
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 
 ####################################
     ##  CKEDITOR CONFIGURATION ##
@@ -156,3 +178,4 @@ REST_FRAMEWORK = {
 
         )
 }
+

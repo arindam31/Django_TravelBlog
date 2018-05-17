@@ -7,3 +7,9 @@ class BlogPostForm(forms.ModelForm):
         model = models.Post
         fields = ['title', 'text', 'tags', 'author', 'slug']
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = models.Comment
+        fields = ['detail', ]
+

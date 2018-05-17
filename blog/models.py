@@ -34,7 +34,7 @@ class Post(models.Model):
 
 	#def get_absolute_url(self):
 	#	return reverse(
-	#			'post_details', 
+	#			'post_details',
 	#		kwargs={'post_pk':self.id}
 	#			)
 
@@ -52,11 +52,20 @@ class Comment(models.Model):
 	post = models.ForeignKey(Post, related_name='comments')
 	detail = models.TextField()
 	created_date = models.DateTimeField(default=timezone.now)
-	approve_comment = models.BooleanField(default=False)
+
+	class Meta:
+		ordering = ['-created_date'] # Negative sign is for descending order
+		                             # in model.objects.all response
 
 	def approve(self):
 		self.approve_comment = True
 		self.save()
+
+	def get_absolute_url(self):
+		return reverse(
+			'post_details',
+			kwargs={'slug': self.post.slug, 'post_pk': self.post.pk }
+			)
 
 	def __str__(self):
 		return self.detail

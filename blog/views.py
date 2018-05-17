@@ -31,13 +31,14 @@ def get_redirected(queryset_or_class, lookups, validators):
 
 
 def post_details(request, slug, post_pk):
+    print 'Phir idhar aaya sala'
     #post = models.Post.objects.get(pk=post_pk)
     post, post_url = get_redirected(models.Post, {'pk':post_pk}, {'slug': slug })
     #return render(request, 'blog/post_details.html', {'post': post })
     if post_url:
         return HttpResponseRedirect(post_url)
     else:
-        return render(request, 'blog/post_details.html', {'post': post })
+        return render(request, 'blog/post_details.html', {'post': post})
 
 def create_post(request):
     #This will help us control who has permission to create posts
@@ -56,7 +57,7 @@ def create_post(request):
                 return render(request, 'blog/post_details.html', {'post': post })
             #return HttpResponseRedirect(
             #    reverse(
-            #        'post_details', 
+            #        'post_details',
             #            args=(post.pk,)
             #            )
             #    )
@@ -83,11 +84,11 @@ def search_post(request):
             raise Http404
         else:
             posts = models.Post.objects.filter(
-            Q(title__icontains=keyword) | Q(text__icontains=keyword), 
-            created_date__lte=timezone.now(), 
+            Q(title__icontains=keyword) | Q(text__icontains=keyword),
+            created_date__lte=timezone.now(),
             ).order_by('published_date')
 
-    return render(request, 'blog/post_list.html', {'posts':posts})    
+    return render(request, 'blog/post_list.html', {'posts':posts})
 
 def like_post(request):
     #This function updates a part of HTML
@@ -105,6 +106,45 @@ def like_post(request):
             post.save()
 
     return HttpResponse("<p>No of Likes : %s </p>" % likes)
+
+def post_comment(request, post_pk):
+    """
+    This function to be used if you want to post comment and then rel-
+    -oad page immediately and show the new comment
+    """
+    post = get_object_or_404(models.Post, pk=post_pk)
+    form = forms.CommentForm()
+    if request.method == 'POST':
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+    else:
+        form = forms.CommentForm()
+
+    return HttpResponseRedirect(post.get_absolute_url())
+
+def post_comment_on_fly(request):
+    """
+    This function is to be used, if you want to create
+    comment using an ajax using jquery call and s
+    show the comment immediately after used submits the comment.
+    """
+    if request.method == 'GET':
+        post_pk =  request.GET['post_pk']
+        comment_details = request.GET['comment_details']
+        post = get_object_or_404(models.Post, pk=post_pk)
+        comment = models.Comment.objects.create(post=post, detail=comment_details)
+        date_time = comment.created_date.strftime("%B %d, %Y %H:%M %p")
+        body = """
+            <div class="comment">
+                <div class="date">
+                    %s
+                </div>
+                <p>%s : by <strong>%s</strong></p>
+            """ % (date_time, comment.detail, comment.post.author)
+    return HttpResponse(body)
 
 def home(request):
     fav_posts = get_favourites()
