@@ -31,7 +31,6 @@ def get_redirected(queryset_or_class, lookups, validators):
 
 
 def post_details(request, slug, post_pk):
-    print 'Phir idhar aaya sala'
     #post = models.Post.objects.get(pk=post_pk)
     post, post_url = get_redirected(models.Post, {'pk':post_pk}, {'slug': slug })
     #return render(request, 'blog/post_details.html', {'post': post })
