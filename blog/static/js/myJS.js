@@ -11,11 +11,9 @@ $('#post_comment').click(function(){
     var post_pk;
     post_pk = $(this).attr("data-post-pk");
     comment_details = $("#CommentBox").val();
-    $.get(`/post/${post_pk}/comment/`, {post_pk: post_pk, comment_details: comment_details}, function(result){
+    $.get(`/post/comment/`, {post_pk: post_pk, comment_details: comment_details}, function(result){
                var list_ = $('#comment-list ul');
-               list_.html(result);
-               // $('#likes').hide();
+               alert(result);
+               list_.prepend(result);
     });
 });
-
-

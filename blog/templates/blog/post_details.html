@@ -66,13 +66,12 @@
 {% endfor %}
 
 {% if request.user.is_authenticated %}
-	{% csrf_token %}
 	<!-- This section is for COMMENT BOX and button  -->
 	<div class="form-group">
 		<input type="text" name="CommentBox" class="form-control" id="CommentBox"/>
 	</div>
 	<div class="form-group">
-		<button type="submit" data-post-pk="{{post.pk}}" class="btn btn-primary" id="post_comment">Post Comment</button>
+		<button type="submit" id="post_comment" data-post-pk="{{post.pk}}" class="btn btn-primary">Post Comment</button>
 		<a class="btn btn-danger" href="/accounts/logout/">Logout</a>
 	</div>
 {% endif %}
