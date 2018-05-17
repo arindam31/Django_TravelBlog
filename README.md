@@ -12,6 +12,7 @@ URL : http://arindam31.pythonanywhere.com
 5) **External Modules to be installed:**
    * CKEditor 
    * djangorestframework
+   * django-allauth
 
 # Features (Implemented):
 1) ## Home Page :
@@ -27,16 +28,18 @@ URL : http://arindam31.pythonanywhere.com
    Same for Editing an existing Post.
    Added feature: Rich Text editor provided in form that provides better text editing tools.
    
-3) ## REST Api 
+4) ## REST Api 
    _All Posts_: 
    http://arindam31.pythonanywhere.com/api/v1/posts  
    
    Above link shows all posts on JSON format . 
    
+5) ## Comments
+   Visitors can log in using Github and post comments . Comment is dynamically added without page reload.
+   
 # To be implemented:
 
 1. Dashboard with details (post views, likes , date created etc)
-1. API to see comments for specific post.
 1. Show Tags beside a post.
 1. In home page, let user select posts by Tags.
 1. Show in home page , details of latest post.
