@@ -28,41 +28,35 @@
 <br>
 
 {% get_providers as socialaccount_providers %}
-
-<p>-----------------------------------------</p>
-
-{% user_display user %}
-<br>
-
 {% user_display user as user_display %}
-{% blocktrans %}{{ user_display }} has logged in...{% endblocktrans %}
-<p>-----------------------------------------</p>
 
-{% if socialaccount_providers %}
-	<p>{% blocktrans with site.name as site_name %} Please sign in with one
-	of your existing third party accounts.
-	Or, <a href="{{ signup_url }}">sign up</a>
-	for a {{ site_name }} account and sign in below:
-	{% endblocktrans %}</p>
+{% if request.user.is_authenticated %}
+    You are logged in as {% user_display user %}
+{% else %}
+    {% if socialaccount_providers %}
+    	<p>{% blocktrans with site.name as site_name %} Please sign in with one
+    	of your existing third party accounts.
+    	Or, <a href="{{ signup_url }}">sign up</a>
+    	for a {{ site_name }} account and sign in below:
+    	{% endblocktrans %}</p>
+    {% endif %}
 {% endif %}
 
 <!-- List all the social login options -->
 {% for provider in socialaccount_providers %}
-{% if provider.id == "openid" %}
-{% for brand in provider.get_brands %}
-<li>
-  <a title="{{brand.name}}"
-     class="socialaccount_provider {{provider.id}} {{brand.id}}"
-     href="{% provider_login_url provider.id openid=brand.openid_url process=process next="{{ next }}" %}"
-     >{{brand.name}}</a>
-</li>
-{% endfor %}
-{% endif %}
+    {% if provider.id == "openid" %}
+        {% for brand in provider.get_brands %}
+          <a title="{{brand.name}}"
+             class="socialaccount_provider {{provider.id}} {{brand.id}}"
+             href="{% provider_login_url provider.id openid=brand.openid_url process=process next="{{ next }}" %}"
+             >{{brand.name}}</a>
 
-<li>
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
-     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
-</li>
+        {% endfor %}
+    {% endif %}
+    <!-- {{provider.name}} Use this to get names like Github , Fb etc -->
+    <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img src="/media/GitHub-Mark-64px.png" /></a>
+
 {% endfor %}
 <!-- SECTION ENDS -->
 
@@ -77,6 +71,7 @@
 	</div>
 {% endif %}
 	<!-- Section Ends -->
+<hr>
 
 <!-- This section is for COMMENTS DISPLAY and button  -->
 <h1>Comments [{{ post.comments.count }}]</h1>
