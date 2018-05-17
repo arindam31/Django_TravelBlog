@@ -46,7 +46,7 @@
 	{% endblocktrans %}</p>
 {% endif %}
 
-
+<!-- List all the social login options -->
 {% for provider in socialaccount_providers %}
 {% if provider.id == "openid" %}
 {% for brand in provider.get_brands %}
@@ -64,9 +64,10 @@
      href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
 </li>
 {% endfor %}
+<!-- SECTION ENDS -->
 
+<!-- This section is for COMMENT BOX and button  -->
 {% if request.user.is_authenticated %}
-	<!-- This section is for COMMENT BOX and button  -->
 	<div class="form-group">
 		<input type="text" name="CommentBox" class="form-control" id="CommentBox"/>
 	</div>

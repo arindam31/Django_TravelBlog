@@ -12,6 +12,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['detail', 'post', 'created_date']
+    ordering = ['-created_date', ] # -ve sign for ordering in desc order in admin comment date column
 
 # Register your models here.
 admin.site.register(models.Post, PostAdmin)

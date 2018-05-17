@@ -108,32 +108,43 @@ def like_post(request):
     return HttpResponse("<p>No of Likes : %s </p>" % likes)
 
 def post_comment(request, post_pk):
-    print 'Idhar to aya'
+    """
+    This function to be used if you want to post comment and then rel-
+    -oad page immediately and show the new comment
+    """
     post = get_object_or_404(models.Post, pk=post_pk)
     form = forms.CommentForm()
     if request.method == 'POST':
-        print 'We are inside POST of comment create'
         form = forms.CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
     else:
-        print 'We are inside GET of comment create'
         form = forms.CommentForm()
 
     return HttpResponseRedirect(post.get_absolute_url())
 
 def post_comment_on_fly(request):
-    print 'We are inside post_comment_on_fly'
+    """
+    This function is to be used, if you want to create
+    comment using an ajax using jquery call and s
+    show the comment immediately after used submits the comment.
+    """
     if request.method == 'GET':
-        print dir(request.GET)
         post_pk =  request.GET['post_pk']
         comment_details = request.GET['comment_details']
         post = get_object_or_404(models.Post, pk=post_pk)
         comment = models.Comment.objects.create(post=post, detail=comment_details)
-
-    return HttpResponse("<li>%s</li>" % comment.detail)
+        date_time = comment.created_date.strftime("%B %d, %Y %H:%M %p")
+        body = """
+            <div class="comment">
+                <div class="date">
+                    %s
+                </div>
+                <p>%s : by <strong>%s</strong></p>
+            """ % (date_time, comment.detail, comment.post.author)
+    return HttpResponse(body)
 
 def home(request):
     fav_posts = get_favourites()

@@ -53,6 +53,10 @@ class Comment(models.Model):
 	detail = models.TextField()
 	created_date = models.DateTimeField(default=timezone.now)
 
+	class Meta:
+		ordering = ['-created_date'] # Negative sign is for descending order
+		                             # in model.objects.all response
+
 	def approve(self):
 		self.approve_comment = True
 		self.save()
