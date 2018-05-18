@@ -2,8 +2,11 @@
 {% load account socialaccount %}
 {% load i18n %}
 
-{% block content %}
+{% block head %}
+<title>{{post.title}}</title>
+{% endblock %}
 
+{% block content %}
 <h1>{{post.title}}</h1>
 
 <!-- This section is for the EDIT POST button -->
@@ -31,7 +34,7 @@
 {% user_display user as user_display %}
 
 {% if request.user.is_authenticated %}
-    You are logged in as {% user_display user %}
+    <p class="lead">You are logged in as <strong> {% user_display user %}</strong></p>
 {% else %}
     {% if socialaccount_providers %}
     	<p>{% blocktrans with site.name as site_name %} Please sign in with one
@@ -54,8 +57,14 @@
         {% endfor %}
     {% endif %}
     <!-- {{provider.name}} Use this to get names like Github , Fb etc -->
-    <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+
+    {% if provider.name == "GitHub" %}
+        <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
          href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img src="/media/GitHub-Mark-64px.png" /></a>
+    {% elif provider.name == "Google" %}
+        <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img vspace= "10px" hspace="10px" height="65" width="auto" class="provider_icons" src="/media/Google_Square.jpg" /></a>
+    {% endif %}
 
 {% endfor %}
 <!-- SECTION ENDS -->
