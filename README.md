@@ -24,9 +24,9 @@ URL : http://arindam31.pythonanywhere.com
    * Post Details URL is human friendly.
    
 3) ## Post Add & Edit: 
-   If user is logged in (via Django Admin), user can add a Post from frontend form.
+   If user is logged in, user can add a Post from frontend form.
    Same for Editing an existing Post.
-   Added feature: Rich Text editor provided in form that provides better text editing tools.
+   Added feature: Rich Text editor provided that provides better text editing tools.
    
 4) ## REST Api 
    _All Posts_: 
@@ -35,7 +35,10 @@ URL : http://arindam31.pythonanywhere.com
    Above link shows all posts on JSON format . 
    
 5) ## Comments
-   Visitors can log in using Github and post comments . Comment is dynamically added without page reload.
+   Visitors can log in and post comments . Comment is dynamically added without page reload.
+   
+6) ## Social Logins
+   No need to register . One can use Google and Github to login . Login allows user to post comments .
    
 # To be implemented:
 
