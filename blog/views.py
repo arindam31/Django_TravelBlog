@@ -153,7 +153,7 @@ def home(request):
             post.first_image = first_image
         else:
             post.first_image = '#'
-    return render(request, 'blog/home_new.html', {'fav_posts':fav_posts})
+    return render(request, 'blog/home_page.html', {'fav_posts':fav_posts})
 
 
 def get_favourites():
