@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -44,6 +45,17 @@ class Post(models.Model):
 			'post_details',
 			kwargs={'slug': self.slug, 'post_pk': self.id }
 			)
+
+
+	def get_images_from_post_description(self):
+	    des = self.text
+	    #first_image = re.findall('(?<=src=")https.*jpg', des)
+	    images = re.findall('(?<=src=").*jpg', des)
+	    images = sorted(images)
+	    if images:
+	        return images[0]
+	    return False
+
 
 	def __str__(self):
 		return self.title
