@@ -147,14 +147,19 @@ def post_comment_on_fly(request):
 
 def home(request):
     fav_posts = get_favourites()
-    latest_post = get_latest_post()
+    latest_post, latest_post_image = get_latest_post()
     for post in fav_posts:
         first_image = get_images_from_post_description(post.pk)
         if first_image:
             post.first_image = first_image
         else:
             post.first_image = '#'
-    return render(request, 'blog/home_page.html', {'fav_posts':fav_posts, 'latest_post': latest_post})
+    return render(request, 'blog/home_page.html',
+     {
+     'fav_posts':fav_posts,
+     'latest_post': latest_post,
+     'latest_post_image':latest_post_image
+     })
 
 
 def get_favourites():
@@ -162,7 +167,9 @@ def get_favourites():
     return models.Post.objects.filter(published=True, favourite=True)
 
 def get_latest_post():
-    return models.Post.objects.latest('created_date')
+    latest = models.Post.objects.latest('created_date')
+    image = get_images_from_post_description(latest.pk)
+    return latest, image
 
 def get_images_from_post_description(post_pk):
     post = models.Post.objects.get(pk=post_pk)

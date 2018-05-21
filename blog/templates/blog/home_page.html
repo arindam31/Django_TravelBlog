@@ -23,7 +23,7 @@
 
 
 <div class="container">
-	<h1 class="display-4 mt-4">Latest
+	<h1 class="display-4 mt-4">Favourite
 				<span style="color: #13A1DA">
 				Posts
 				</span>
@@ -42,24 +42,26 @@
 <section class="Level_2">
 		<div class="container">
 		  <div class="row">
-		    <div class="col-md-9">
+		    <div class="col-md-8">
 		    	<h1>{{ latest_post.title }}</h1>
+		    	<img class="img-fluid mb-1" src={{ latest_post_image }}>
 		    	<p>{{ latest_post.short_intro }}</p>
-				<p class="lead">Created On: {{latest_post.created_date}}
+				<p class="lead">Created On: {{latest_post.created_date}}</p>
 				<a class="btn btn-primary" role="button" href="{% url 'post_details' latest_post.pk latest_post.slug  %}">Read it</a>
+
 		    </div>
 
-		    <div class="col-md-3">
+		    <div class="col-md-3  offset-md-1">
 		      <section>
 		      	<div class="row">
-		      		<div class="img-thumbnail">
 		      	{% for post in fav_posts %}
-		      	<img width="100%" src={{ post.first_image }}>
-				<a href="{% url 'post_details' post.pk post.slug %}">
-				{{ post.title }}</a>
+		      	<div class="img-thumbnail my-2">
+			      	<img width="100%" src={{ post.first_image }}>
+					<a href="{% url 'post_details' post.pk post.slug %}">
+					{{ post.title }}</a>
+				</div>
 				{% endfor %}
-			</div>
-			</div>
+				</div>
 
 			</section>
 		    </div>
