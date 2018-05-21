@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/new_blog_base.html' %}
 {% load account socialaccount %}
 {% load i18n %}
 
@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="container">
 <h1>{{post.title}}</h1>
 
 <!-- This section is for the EDIT POST button -->
@@ -16,7 +17,7 @@
 <!-- Section Ends -->
 
 <p>{{post.text | safe | linebreaksbr }}</p>
-<p>Created On: {{post.created_date}}
+<p>Created On: {{post.created_date}}</p>
 
 <!-- This section is for the LIKE BUTTON -->
 <div id="like_count">
@@ -100,11 +101,13 @@
 		</li>
 	{% empty %}
 
-    	<p>No comments here yet :(</p>
+    	<p>No comments here yet :( </p>
     {% endfor %}
 	</ul>
 </div>
 <!-- Section ends  -->
+
+</div>
 
 <script type="text/javascript">
 //var body = document.getElementById('webBody');
