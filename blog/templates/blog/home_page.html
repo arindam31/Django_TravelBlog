@@ -17,19 +17,23 @@
 			<div class="col-lg-5">
 				<p>Hi, I am Arindam. I love coding , blogging and web apps designing.</p>
 			</div>
-		</div>	
+		</div>
 	</div>
 </section>
 
 
-
 <div class="container">
-<section class="gallery d-flex flex-wrap">
-	
-		{% for post in fav_posts %}
-			<a href="{% url 'post_details' post.pk post.slug %}"><img src={{ post.first_image }}>{{ post.title }}</a>
-		{% endfor %}
-</section>
+	<h1 class="display-4 mt-4">Latest
+				<span style="color: #13A1DA">
+				Posts
+				</span>
+				</h1>
+	<section class="gallery d-flex flex-wrap">
+
+			{% for post in fav_posts %}
+				<a href="{% url 'post_details' post.pk post.slug %}"><img src={{ post.first_image }}>{{ post.title }}</a>
+			{% endfor %}
+	</section>
 </div>
 <br>
 <br>
@@ -40,9 +44,9 @@
 		  <div class="row">
 		    <div class="col-md-9">
 		    	<h1>{{ latest_post.title }}</h1>
-		    	<p>{{latest_post.text | safe | linebreaksbr | slice:":10000" }}</p>
-				<p>Created On: {{latest_post.created_date}}
-
+		    	<p>{{ latest_post.short_intro }}</p>
+				<p class="lead">Created On: {{latest_post.created_date}}
+				<a class="btn btn-primary" role="button" href="{% url 'post_details' latest_post.pk latest_post.slug  %}">Read it</a>
 		    </div>
 
 		    <div class="col-md-3">
@@ -56,7 +60,7 @@
 				{% endfor %}
 			</div>
 			</div>
-				
+
 			</section>
 		    </div>
 		  </div>
