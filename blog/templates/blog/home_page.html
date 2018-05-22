@@ -26,7 +26,7 @@
 				<p>Pune , India</p>
 			</div>
 			<div class="col-lg-5">
-				<p>Hi, I am Arindam. I love coding , blogging and web apps designing. Some long text to test the length.</p>
+				<p>Hi, I am Arindam. I love travelling since always and this is my place to share all my stories with you guys.</p>
 			</div>
 			<div class="col-lg-3">
 				<div class="card">
@@ -35,7 +35,7 @@
 					</div>
 					<div class="card-body">
 						{% for tag in tags %}
-							<button class="btn btn-primary my-1">{{ tag }}</button>
+							<a href="{% url 'tag_posts' tag.name %}" class="btn btn-primary my-1">{{ tag }}</a>
 						{% endfor %}
 					</div>
 				</div>

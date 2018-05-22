@@ -163,8 +163,16 @@ def home(request):
      'tags':tags,
      })
 
+def all_posts_for_tag(request, tag):
+    posts = get_post_for_tag(tag)
+    return render(request, 'blog/post_list.html', {'posts':posts})
+
 def get_all_tags():
     return models.Tag.objects.all()
+
+def get_post_for_tag(tagname):
+    posts = models.Post.objects.filter(tags__name=tagname)
+    return posts
 
 
 def get_favourites():
