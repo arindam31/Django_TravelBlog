@@ -146,6 +146,7 @@ def post_comment_on_fly(request):
     return HttpResponse(body)
 
 def home(request):
+    tags = get_all_tags()
     fav_posts = get_favourites()
     latest_post, latest_post_image = get_latest_post()
     for post in fav_posts:
@@ -158,8 +159,12 @@ def home(request):
      {
      'fav_posts':fav_posts,
      'latest_post': latest_post,
-     'latest_post_image':latest_post_image
+     'latest_post_image':latest_post_image,
+     'tags':tags,
      })
+
+def get_all_tags():
+    return models.Tag.objects.all()
 
 
 def get_favourites():
