@@ -7,16 +7,14 @@ from . import views
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
 	url(r'^posts/$', views.post_list, name='post_list'),
-	#url(r'^post/(?P<post_pk>\d+)/comment/$', views.post_comment_on_fly, name='comment_create'),
 	url(r'^post/comment/$', views.post_comment_on_fly, name='comment_create'),
 	url(r'^post/(?P<post_pk>\d+)/edit/$', views.edit_post, name='post_edit'),
 	url(r'^post/about_me/$', views.about_me, name='about_me'),
 	url(r'^post/(?P<post_pk>\d+)/(?P<slug>[-\w\d]+)/$', views.post_details, name='post_details'),
 	url(r'^post/create/$', views.create_post, name='post_create'),
-
-	url(r'^search/post/$', views.search_post, name='post_search'),
 	url(r'^post/like/$', views.like_post, name='like_post'),
-
+	url(r'^search/post/$', views.search_post, name='post_search'),
+	url(r'^posts/tag/(?P<tag>[\w]+)/$', views.all_posts_for_tag, name='tag_posts')
 
 ]
 

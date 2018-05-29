@@ -1,15 +1,28 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/new_blog_base.html' %}
 {% block content %}
+    <div class="container mb-4">
     {% if posts %}
+        <div class="card-deck">
         {% for post in posts %}
-            <div class="post">
-		    <h1><a href="{% url 'post_details' post.pk %}">{{ post.title }}</a> </h1>
-                <p>{{ post.text| safe | truncatewords:"50" | linebreaksbr }} </p>
-                <p><strong>{{ post.author }}</strong></p>
-                <div class="date">
-                    <p><strong>{{ post.created_date }}</strong></p>
+
+            <div class="card">
+		        {% if post.get_images_from_post_description %}
+                    <img class="card-img-top" src={{ post.get_images_from_post_description }}>
+                {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title mx-1">{{ post.title }}</h1>
+                    <p class="card-text mx-1">{{ post.short_intro }}</p>
+                    <p class="lead mx-1">Created On: {{ post.created_date }}</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" role="button" href="{% url 'post_details' post.pk post.slug  %}">Read it</a>
                 </div>
             </div>
         {% endfor %}
+        </div>
     {% endif %}
+    </div>
 {% endblock %}
+
+
+

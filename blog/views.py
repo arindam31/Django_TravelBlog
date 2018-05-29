@@ -146,19 +146,53 @@ def post_comment_on_fly(request):
     return HttpResponse(body)
 
 def home(request):
+    tags = get_all_tags()
     fav_posts = get_favourites()
+    latest_post, latest_post_image = get_latest_post()
+    all_posts = models.Post.objects.filter(published=True).order_by('-created_date')
     for post in fav_posts:
         first_image = get_images_from_post_description(post.pk)
         if first_image:
             post.first_image = first_image
         else:
             post.first_image = '#'
-    return render(request, 'blog/home_new.html', {'fav_posts':fav_posts})
+
+    for post in all_posts:
+        first_image = get_images_from_post_description(post.pk)
+        if first_image:
+            post.first_image = first_image
+        else:
+            post.first_image = '#'
+
+    return render(request, 'blog/home_page.html',
+     {
+     'fav_posts':fav_posts,
+     'latest_post': latest_post,
+     'latest_post_image':latest_post_image,
+     'tags':tags,
+     'all_posts': all_posts,
+     })
+
+def all_posts_for_tag(request, tag):
+    posts = get_post_for_tag(tag)
+    return render(request, 'blog/post_list.html', {'posts':posts})
+
+def get_all_tags():
+    return models.Tag.objects.all()
+
+def get_post_for_tag(tagname):
+    posts = models.Post.objects.filter(tags__name=tagname)
+    return posts
 
 
 def get_favourites():
     #This function returns a list of post with fav as True
     return models.Post.objects.filter(published=True, favourite=True)
+
+def get_latest_post():
+    latest = models.Post.objects.latest('created_date')
+    image = get_images_from_post_description(latest.pk)
+    return latest, image
 
 def get_images_from_post_description(post_pk):
     post = models.Post.objects.get(pk=post_pk)
