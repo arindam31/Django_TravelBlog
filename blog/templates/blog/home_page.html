@@ -31,7 +31,7 @@
 			<div class="col-lg-3">
 				<div class="card">
 					<div class="card-header">
-						Popular Tags
+						<h2>Popular Tags</h2>
 					</div>
 					<div class="card-body">
 						{% for tag in tags %}
@@ -75,9 +75,12 @@
 		    </div>
 
 		    <div class="col-md-3  offset-md-1">
-		      <section>
+		      <section id="all_posts_ordered_by_date_desc">
 		      	<div class="row">
-		      	{% for post in fav_posts %}
+		      		<h1 class="lead display-4">All <span style="color: #13A1DA">
+				Posts
+				</span></h1>
+		      	{% for post in all_posts %}
 		      	<div class="img-thumbnail my-2">
 			      	<img width="100%" src={{ post.first_image }}>
 					<a href="{% url 'post_details' post.pk post.slug %}">

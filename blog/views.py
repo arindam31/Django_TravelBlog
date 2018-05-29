@@ -149,18 +149,28 @@ def home(request):
     tags = get_all_tags()
     fav_posts = get_favourites()
     latest_post, latest_post_image = get_latest_post()
+    all_posts = models.Post.objects.filter(published=True).order_by('-created_date')
     for post in fav_posts:
         first_image = get_images_from_post_description(post.pk)
         if first_image:
             post.first_image = first_image
         else:
             post.first_image = '#'
+
+    for post in all_posts:
+        first_image = get_images_from_post_description(post.pk)
+        if first_image:
+            post.first_image = first_image
+        else:
+            post.first_image = '#'
+
     return render(request, 'blog/home_page.html',
      {
      'fav_posts':fav_posts,
      'latest_post': latest_post,
      'latest_post_image':latest_post_image,
      'tags':tags,
+     'all_posts': all_posts,
      })
 
 def all_posts_for_tag(request, tag):
