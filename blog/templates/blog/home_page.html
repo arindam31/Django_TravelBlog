@@ -1,0 +1,99 @@
+{% extends 'blog/new_blog_base.html' %}
+
+	{% block head %}
+	<title>My Blog</title>
+	{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+	<div class="cover-container pb-5">
+		<div class="cover-inner container">
+			<h1 class="jumbotron-heading">Welcome to <em>The Bong Travellers</em>  <strong>stories</strong></h1>
+			<p class="lead">Discover amazing locations and secret tips......</p>
+						<!-- Add more p tags to add more text -->
+
+		</div>
+	</div>
+</div>
+
+<section class="Me_Intro">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 profile-info">
+				<img class="float-left" src="media/Profile_Me.jpg" alt="Me in Photo">
+				<h2>Arindam Roychowdhury</h2>
+				<p>Pune , India</p>
+			</div>
+			<div class="col-lg-5">
+				<p>Hi, I am Arindam. I love travelling since always and this is my place to share all my stories with you guys.</p>
+			</div>
+			<div class="col-lg-3">
+				<div class="card">
+					<div class="card-header">
+						<h2>Popular Tags</h2>
+					</div>
+					<div class="card-body">
+						{% for tag in tags %}
+							<a href="{% url 'tag_posts' tag.name %}" class="btn btn-primary my-1">{{ tag }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div class="container">
+	<h1 class="display-4 mt-4">Favourite
+				<span style="color: #13A1DA">
+				Posts
+				</span>
+				</h1>
+	<section class="gallery d-flex flex-wrap">
+
+			{% for post in fav_posts %}
+				<a href="{% url 'post_details' post.pk post.slug %}"><img src={{ post.first_image }}>{{ post.title }}</a>
+			{% endfor %}
+	</section>
+</div>
+<br>
+<br>
+<br>
+
+<section class="Level_2">
+		<div class="container">
+		  <div class="row">
+		    <div class="col-md-8">
+		    	<h1 class="lead display-4">{{ latest_post.title }}</h1>
+		    	<img class="img-fluid mb-1" src={{ latest_post_image }}>
+		    	<p>{{ latest_post.short_intro }}</p>
+				<p class="lead">Created On: {{latest_post.created_date}}</p>
+				<a class="btn btn-primary" role="button" href="{% url 'post_details' latest_post.pk latest_post.slug  %}">Read it</a>
+
+		    </div>
+
+		    <div class="col-md-3  offset-md-1">
+		      <section id="all_posts_ordered_by_date_desc">
+		      	<div class="row">
+		      		<h1 class="lead display-4">All <span style="color: #13A1DA">
+				Posts
+				</span></h1>
+		      	{% for post in all_posts %}
+		      	<div class="img-thumbnail my-2">
+			      	<img width="100%" src={{ post.first_image }}>
+					<a href="{% url 'post_details' post.pk post.slug %}">
+					{{ post.title }}</a>
+				</div>
+				{% endfor %}
+				</div>
+
+			</section>
+		    </div>
+		  </div>
+		</div>
+</section>
+
+
+{% endblock %}
