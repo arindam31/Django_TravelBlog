@@ -2,6 +2,10 @@ header {
 	margin: 2rem 0;
 }
 
+.my_fav_blue {
+  color: #13A1DA;
+             }
+
 .navbar-default {
     background-color: #14AAF0;
     border-color: #E7E7E7;
@@ -122,3 +126,5 @@ hr { /* This is horizontal line..Below are the bootstrap properties for a hr cla
 	padding:7px 15px;
 	margin-bottom:30px;
 }
+
+

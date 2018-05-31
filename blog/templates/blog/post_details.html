@@ -9,12 +9,19 @@
 {% block content %}
 <div class="row">
   <div class="col-md-2">
+        <!-- This section is for the LIKE BUTTON -->
+        <div class="mx-4 mt-4">
+          <button data-catid="{{post.id}}" id="likes"  class="btn btn-outline-primary btn-light btn-sm"><img height="40" width="auto" src="/media/Like_Icon.png"></button>
+          <div class="btn btn-outline-primary btn-light btn-lg" id="like_count">{{ post.likes }}</div>
+        </div>
+
+          <!-- Section Ends -->
   </div>
 
   <div class="col-md-8">
 
       <div class="container">
-      <h1>{{post.title}}</h1>
+      <h1 ><span class="my_fav_blue">{{post.title}}</span></h1>
 
       <!-- This section is for the EDIT POST button -->
       {% if request.user.is_authenticated or request.user.is_staff %}
@@ -24,15 +31,6 @@
 
       <div class="lead">{{post.text | safe | linebreaksbr }}</div>
       <h1>Created On: {{post.created_date}}</h1>
-
-      <!-- This section is for the LIKE BUTTON -->
-      <div id="like_count">
-        <p>No of Likes : {{ post.likes }}</p>
-      </div>
-
-      <button data-catid="{{post.id}}" id="likes"  class="btn btn-light btn-xs"><img height="40" width="auto" src="/media/Like_Icon.png"></button>
-
-      <!-- Section Ends -->
 
       <br>
       <br>
