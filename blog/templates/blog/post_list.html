@@ -2,13 +2,18 @@
 {% block content %}
     <div class="container mb-4">
     {% if posts %}
-        <div class="card-deck">
+
+
         {% for post in posts %}
+            {% if forloop.counter0|divisibleby:"3" %}
+                <div class="row">
+                <div class="card-deck">
+            {% endif %}
 
             <div class="card">
-		        {% if post.get_images_from_post_description %}
-                    <img class="card-img-top" src={{ post.get_images_from_post_description }}>
-                {% endif %}
+		      {% if post.get_images_from_post_description %}
+                <img class="card-img-top" src={{ post.get_images_from_post_description }}>
+              {% endif %}
                 <div class="card-body">
                     <h1 class="card-title mx-1">{{ post.title }}</h1>
                     <p class="card-text mx-1">{{ post.short_intro }}</p>
@@ -18,8 +23,13 @@
                     <a class="btn btn-primary" role="button" href="{% url 'post_details' post.pk post.slug  %}">Read it</a>
                 </div>
             </div>
+            {% if forloop.counter|divisibleby:"3" %}
+                </div><!-- This is the end of row -->
+                </div><!-- This is the end of card-deck -->
+                <br>
+            {% endif %}
+
         {% endfor %}
-        </div>
     {% endif %}
     </div>
 {% endblock %}

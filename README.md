@@ -44,5 +44,7 @@ URL : http://arindam31.pythonanywhere.com
 
 1. Dashboard with details (post views, likes , date created etc)
 1. Show Tags beside a post.
-1. In home page, let user select posts by Tags.
-1. Show in home page , details of latest post.
+1. Add share buttons for FB , Quora , and others.
+1. Add edit possibility for daily quote from front-end.
+1. Remove unused options from Navbar. 
+1. Create a travel planner To-Do list . User should be logged-in to avail this. 

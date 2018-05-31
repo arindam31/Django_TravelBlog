@@ -7,110 +7,133 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-<h1>{{post.title}}</h1>
+<div class="row">
+  <div class="col-md-2">
+        <!-- This section is for the LIKE BUTTON -->
+        <div class="mx-4 mt-4">
+          <button data-catid="{{post.id}}" id="likes"  class="btn btn-outline-primary btn-light btn-sm"><img height="40" width="auto" src="/media/Like_Icon.png"></button>
+          <div class="btn btn-outline-primary btn-light btn-lg" id="like_count">{{ post.likes }}</div>
+        </div>
 
-<!-- This section is for the EDIT POST button -->
-{% if request.user.is_authenticated or request.user.is_staff %}
-	<p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" imgrole="button">Edit POST</a></p>
-{% endif %}
-<!-- Section Ends -->
+          <!-- Section Ends -->
+  </div>
 
-<div class="lead">{{post.text | safe | linebreaksbr }}</div>
-<p>Created On: {{post.created_date}}</p>
+  <div class="col-md-8">
 
-<!-- This section is for the LIKE BUTTON -->
-<div id="like_count">
-	<p>No of Likes : {{ post.likes }}</p>
+      <div class="container">
+      <h1 ><span class="my_fav_blue">{{post.title}}</span></h1>
+
+      <!-- This section is for the EDIT POST button -->
+      {% if request.user.is_authenticated or request.user.is_staff %}
+        <p><a href="{% url 'post_edit' post.pk %}" class="btn btn-info" imgrole="button">Edit POST</a></p>
+      {% endif %}
+      <!-- Section Ends -->
+
+      <div class="lead">{{post.text | safe | linebreaksbr }}</div>
+      <h1>Created On: {{post.created_date}}</h1>
+
+      <br>
+      <br>
+
+      {% get_providers as socialaccount_providers %}
+      {% user_display user as user_display %}
+
+      {% if request.user.is_authenticated %}
+          <p class="lead">You are logged in as <strong> {% user_display user %}</strong></p>
+      {% else %}
+          {% if socialaccount_providers %}
+            <p>{% blocktrans with site.name as site_name %} Please sign in with one
+            of your existing third party accounts.
+            Or, <a href="{{ signup_url }}">sign up</a>
+            for a {{ site_name }} account and sign in below:
+            {% endblocktrans %}</p>
+          {% endif %}
+      {% endif %}
+
+      <!-- List all the social login options -->
+      {% for provider in socialaccount_providers %}
+          {% if provider.id == "openid" %}
+              {% for brand in provider.get_brands %}
+                <a title="{{brand.name}}"
+                   class="socialaccount_provider {{provider.id}} {{brand.id}}"
+                   href="{% provider_login_url provider.id openid=brand.openid_url process=process next="{{ next }}" %}"
+                   >{{brand.name}}</a>
+
+              {% endfor %}
+          {% endif %}
+          <!-- {{provider.name}} Use this to get names like Github , Fb etc -->
+
+          {% if provider.name == "GitHub" %}
+              <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+               href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img src="/media/GitHub-Mark-64px.png" /></a>
+          {% elif provider.name == "Google" %}
+              <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+               href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img vspace= "10px" hspace="10px" height="65" width="auto" class="provider_icons" src="/media/Google_Square.jpg" /></a>
+          {% endif %}
+
+      {% endfor %}
+      <!-- SECTION ENDS -->
+
+      <!-- This section is for COMMENT BOX and button  -->
+      {% if request.user.is_authenticated %}
+        <div class="form-group">
+          <input type="text" name="CommentBox" class="form-control" id="CommentBox"/>
+        </div>
+        <div class="form-group">
+          <button type="submit" id="post_comment" data-post-pk="{{post.pk}}" class="btn btn-primary">Post Comment</button>
+          <a class="btn btn-danger" href="/accounts/logout/">Logout</a>
+        </div>
+      {% endif %}
+        <!-- Section Ends -->
+      <hr>
+
+      <!-- This section is for COMMENTS DISPLAY and button  -->
+      <h1>Comments [{{ post.comments.count }}]</h1>
+
+      <div  id="comment-list">
+      <hr class="hr">
+        <ul class="list-unstyled">
+        {% for comment in post.comments.all %}
+          <li>
+          <div class="comment">
+
+            <div class="date">
+              {{ comment.created_date }}
+            </div>
+            <p>{{ comment.detail }} : by <strong>{{comment.post.author}}</strong></p>
+          </div>
+          </li>
+        {% empty %}
+
+            <p>No comments here yet :( </p>
+          {% endfor %}
+        </ul>
+      </div>
+      <!-- Section ends  -->
+
+      </div>
+
+      <script type="text/javascript">
+      //var body = document.getElementById('webBody');
+      //body.setAttribute("background", "/media/Aru_Valley.jpg");
+      </script>
+
+  </div>
+
+  <div class="col-md-2">
+    <div class="p-5">
+            <div class="row">
+              <ul class="list-unstyled">
+              {% for tag in post.tags.all %}
+                  <li><a href="{% url 'tag_posts' tag.name %}" class="btn btn-primary my-1">{{ tag }}</a></li>
+              {% endfor %}
+              </ul>
+            </div>
+    </div>
+  </div>
+
 </div>
-
-<button data-catid="{{post.id}}" id="likes"  class="btn btn-light btn-xs"><img height="40" width="auto" src="/media/Like_Icon.png"></button>
-
-<!-- Section Ends -->
-
-<br>
-<br>
-
-{% get_providers as socialaccount_providers %}
-{% user_display user as user_display %}
-
-{% if request.user.is_authenticated %}
-    <p class="lead">You are logged in as <strong> {% user_display user %}</strong></p>
-{% else %}
-    {% if socialaccount_providers %}
-    	<p>{% blocktrans with site.name as site_name %} Please sign in with one
-    	of your existing third party accounts.
-    	Or, <a href="{{ signup_url }}">sign up</a>
-    	for a {{ site_name }} account and sign in below:
-    	{% endblocktrans %}</p>
-    {% endif %}
-{% endif %}
-
-<!-- List all the social login options -->
-{% for provider in socialaccount_providers %}
-    {% if provider.id == "openid" %}
-        {% for brand in provider.get_brands %}
-          <a title="{{brand.name}}"
-             class="socialaccount_provider {{provider.id}} {{brand.id}}"
-             href="{% provider_login_url provider.id openid=brand.openid_url process=process next="{{ next }}" %}"
-             >{{brand.name}}</a>
-
-        {% endfor %}
-    {% endif %}
-    <!-- {{provider.name}} Use this to get names like Github , Fb etc -->
-
-    {% if provider.name == "GitHub" %}
-        <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
-         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img src="/media/GitHub-Mark-64px.png" /></a>
-    {% elif provider.name == "Google" %}
-        <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
-         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img vspace= "10px" hspace="10px" height="65" width="auto" class="provider_icons" src="/media/Google_Square.jpg" /></a>
-    {% endif %}
-
-{% endfor %}
-<!-- SECTION ENDS -->
-
-<!-- This section is for COMMENT BOX and button  -->
-{% if request.user.is_authenticated %}
-	<div class="form-group">
-		<input type="text" name="CommentBox" class="form-control" id="CommentBox"/>
-	</div>
-	<div class="form-group">
-		<button type="submit" id="post_comment" data-post-pk="{{post.pk}}" class="btn btn-primary">Post Comment</button>
-		<a class="btn btn-danger" href="/accounts/logout/">Logout</a>
-	</div>
-{% endif %}
-	<!-- Section Ends -->
-<hr>
-
-<!-- This section is for COMMENTS DISPLAY and button  -->
-<h1>Comments [{{ post.comments.count }}]</h1>
-
-<div  id="comment-list">
-<hr class="hr">
-	<ul class="list-unstyled">
-	{% for comment in post.comments.all %}
-		<li>
-		<div class="comment">
-
-			<div class="date">
-				{{ comment.created_date }}
-			</div>
-			<p>{{ comment.detail }} : by <strong>{{comment.post.author}}</strong></p>
-		</div>
-		</li>
-	{% empty %}
-
-    	<p>No comments here yet :( </p>
-    {% endfor %}
-	</ul>
-</div>
-<!-- Section ends  -->
-
-</div>
-
-<script type="text/javascript">
-//var body = document.getElementById('webBody');
-//body.setAttribute("background", "/media/Aru_Valley.jpg");
-</script>
 {% endblock %}
+
+
+

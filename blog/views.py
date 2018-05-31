@@ -104,7 +104,7 @@ def like_post(request):
             post.likes = likes
             post.save()
 
-    return HttpResponse("<p>No of Likes : %s </p>" % likes)
+    return HttpResponse("<div>%s</div>" % likes)
 
 def post_comment(request, post_pk):
     """
