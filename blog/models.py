@@ -83,5 +83,31 @@ class Comment(models.Model):
 	def __str__(self):
 		return self.detail
 
+class City(models.Model):
+	name = models.CharField(max_length=100)
+
+class Address(models.Model):
+	title = models.CharField(max_length=200)
+	street = models.TextField()
+	city = models.ForeignKey(City)
+	pincode = models.PositiveIntegerField(blank=True)
+
+class DayPlan(models.Model):
+	no_of_days = models.PositiveIntegerField()
+
+
+class CityPost(models.Model):
+	name = models.CharField(max_length=100)
+	state = models.CharField(max_length=100)
+	city = models.ForeignKey(City)
+	best_month = model.DateField(max_length=30)
+	intro = models.TextField()
+	description = models.TextField()
+
+class Cuisine(models.Model):
+	title = models.CharField(max_length=100)
+	description = models.TextField()
+	pic = models.ImageField(upload_to = 'media/')
+
 
 
