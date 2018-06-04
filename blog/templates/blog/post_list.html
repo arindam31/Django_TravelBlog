@@ -30,6 +30,21 @@
             {% endif %}
 
         {% endfor %}
+    {% else %}
+        <div class="text-center">
+            <div class="container  d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+                <main role="main">
+                        <h1 class="cover-heading error_heading">OOPS ! No result found !!!!</h1>
+                        <p class="lead">
+                        <h3>The keyword used, fetched no results.</h3></p>
+                        <p class="lead">
+                          <a href="{% url 'home' %}" class="btn btn-lg btn-secondary">Let's go Home</a>
+                        </p>
+                 </main>
+            </div>
+        </div>
+
     {% endif %}
     </div>
 {% endblock %}
