@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<h1 class="jumbotron-heading"><em>{{ city.name }}</em>  <strong>city</strong></h1>
+<p class="lead">{{ city.quote }}</p>
+
+{{city.airport.address}}
+
+{{city.station.address}}
+
+{% if day_plans %}
+	{% for plan in day_plans %}
+		{{ plan }}
+	{% endfor %}
+{% endif%}
+
+{% if must_see %}
+{% for point in must_see %}
+	{% point %}
+{% endfor %}
+{% endif %}
+
+{% if must_try %}
+{% for cuisine in must_try %}
+	{% cuisine %}
+{% endfor %}
+{% endif %}
+
+{% endblock %}
