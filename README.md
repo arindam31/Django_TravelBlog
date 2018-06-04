@@ -13,6 +13,7 @@ URL : http://arindam31.pythonanywhere.com
    * CKEditor 
    * djangorestframework
    * django-allauth
+   * [django-crispy-forms ](http://django-crispy-forms.readthedocs.io/en/latest/install.html)
 
 # Features (Implemented):
 1) ## Home Page :
@@ -43,8 +44,5 @@ URL : http://arindam31.pythonanywhere.com
 # To be implemented:
 
 1. Dashboard with details (post views, likes , date created etc)
-1. Show Tags beside a post.
 1. Add share buttons for FB , Quora , and others.
-1. Add edit possibility for daily quote from front-end.
-1. Remove unused options from Navbar. 
 1. Create a travel planner To-Do list . User should be logged-in to avail this. 

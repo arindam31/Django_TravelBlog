@@ -86,8 +86,11 @@ def search_post(request):
             Q(title__icontains=keyword) | Q(text__icontains=keyword),
             created_date__lte=timezone.now(),
             ).order_by('published_date')
-
-    return render(request, 'blog/post_list.html', {'posts':posts})
+            if posts:
+                return render(request, 'blog/post_list.html', {'posts':posts})
+            else:
+                all_posts = models.Post.objects.filter(published=True).order_by('-created_date')
+                return render(request, 'blog/post_list.html', {'all_posts':all_posts})
 
 def like_post(request):
     #This function updates a part of HTML
