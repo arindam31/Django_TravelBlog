@@ -111,15 +111,24 @@ class DayPlan(models.Model):
 
 
 class CityPost(models.Model):
-	name = models.CharField(max_length=100)
+	title = models.CharField(max_length=100)
 	state = models.CharField(max_length=100)
 	city = models.ForeignKey(City)
 	best_month = models.DateField(max_length=30)
 	intro = models.TextField()
 	description = models.TextField()
+	created_date = models.DateTimeField(default=timezone.now)
+	published = models.BooleanField(default=False)
+	slug = models.SlugField(max_length=100, blank=False, default=title)
 
 	def __str__(self):
-		return self.name
+		return self.title
+
+	def get_absolute_url(self):
+		return reverse(
+			'city_post',
+			kwargs={'slug': self.slug, 'city_post_pk': self.id }
+			)
 
 
 class Cuisine(models.Model):

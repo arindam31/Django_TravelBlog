@@ -74,6 +74,27 @@
 				<p class="lead">Created On: {{latest_post.created_date}}</p>
 				<a class="btn btn-primary" role="button" href="{% url 'post_details' latest_post.pk latest_post.slug  %}">Read it</a>
 
+				<section id="cities">
+						<h1 class="display-4 mt-4 mb-4">City
+								<span class="my_fav_blue">
+								Times
+								</span>
+								</h1>
+						{% if cities %}
+							{% for city_post in cities %}
+							<a href="#">
+								<div class="card w-25"> <!-- w-25 is width 25%. To limit the cards width, which is by default 100 % -->
+								  <img class="card-img-top" src="/media/MyLogo.png" alt="Card image cap">
+								  <div class="card-body">
+								    <h5 class="card-title text-center">{{ city_post.title }}</h5>
+								  </div>
+								</div>
+							</a>
+
+							{% endfor %}
+						{% endif %}
+				</section>
+
 		    </div>
 
 		    <div class="col-md-3  offset-md-1">
@@ -96,6 +117,5 @@
 		  </div>
 		</div>
 </section>
-
 
 {% endblock %}

@@ -167,6 +167,8 @@ def home(request):
         else:
             post.first_image = '#'
 
+    cities = models.CityPost.objects.filter(published=True)
+
     return render(request, 'blog/home_page.html',
      {
      'fav_posts':fav_posts,
@@ -174,6 +176,7 @@ def home(request):
      'latest_post_image':latest_post_image,
      'tags':tags,
      'all_posts': all_posts,
+     'cities': cities,
      })
 
 def all_posts_for_tag(request, tag):
@@ -217,3 +220,11 @@ def error_500(request):
 
 def about_me(request):
     return render(request, 'blog/about_me.html')
+
+def city_post(request, city_post_pk):
+    post, post_url = get_redirected(models.Post, {'pk':city_post_pk}, {'slug': slug })
+    if post_url:
+        return HttpResponseRedirect(post_url)
+    else:
+        return render(request, 'blog/city_post.html', {'post': post})
+

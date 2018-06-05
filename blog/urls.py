@@ -14,8 +14,10 @@ urlpatterns = [
 	url(r'^post/create/$', views.create_post, name='post_create'),
 	url(r'^post/like/$', views.like_post, name='like_post'),
 	url(r'^search/post/$', views.search_post, name='post_search'),
-	url(r'^posts/tag/(?P<tag>[\w]+)/$', views.all_posts_for_tag, name='tag_posts')
+	url(r'^posts/tag/(?P<tag>[\w]+)/$', views.all_posts_for_tag, name='tag_posts'),
 
+	# City related urls
+	url(r'^post/(?P<city_post_pk>\d+)/(?P<slug>[-\w\d]+)/$', views.city_post, name='city_details'),
 ]
 
 if settings.DEBUG:
