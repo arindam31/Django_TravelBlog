@@ -100,7 +100,7 @@ class CityPost(models.Model):
 	name = models.CharField(max_length=100)
 	state = models.CharField(max_length=100)
 	city = models.ForeignKey(City)
-	best_month = model.DateField(max_length=30)
+	best_month = models.DateField(max_length=30)
 	intro = models.TextField()
 	description = models.TextField()
 

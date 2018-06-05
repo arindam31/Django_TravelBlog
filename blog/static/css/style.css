@@ -6,6 +6,15 @@ header {
   color: #13A1DA;
              }
 
+.graduating_blue {
+background-image: -webkit-linear-gradient(top, #56b0f8, #ffffff); /* For Chrome and Safari */
+background-image:    -moz-linear-gradient(top, #56b0f8, #ffffff); /* For old Fx (3.6 to 15) */
+background-image:     -ms-linear-gradient(top, #56b0f8, #ffffff); /* For pre-releases of IE 10*/
+background-image:      -o-linear-gradient(top, #56b0f8, #ffffff); /* For old Opera (11.1 to 12.0) */
+background-image:         linear-gradient(to bottom, #56b0f8, #ffffff); /* Standard syntax; must be last */
+/* Source: http://patorjk.com/gradient-image-generator/; */
+}
+
 .navbar-default {
     background-color: #14AAF0;
     border-color: #E7E7E7;
