@@ -75,23 +75,36 @@
 				<a class="btn btn-primary" role="button" href="{% url 'post_details' latest_post.pk latest_post.slug  %}">Read it</a>
 
 				<section id="cities">
-						<h1 class="display-4 mt-4 mb-4">City
+					<h1 class="display-4 mt-4 mb-4">City
 								<span class="my_fav_blue">
 								Times
 								</span>
 								</h1>
 						{% if cities %}
-							{% for city_post in cities %}
-							<a href="#">
-								<div class="card w-25"> <!-- w-25 is width 25%. To limit the cards width, which is by default 100 % -->
-								  <img class="card-img-top" src="/media/MyLogo.png" alt="Card image cap">
-								  <div class="card-body">
-								    <h5 class="card-title text-center">{{ city_post.title }}</h5>
-								  </div>
-								</div>
-							</a>
 
-							{% endfor %}
+				        {% for post in cities %}
+				            {% if forloop.counter0|divisibleby:"3" %}
+				                <div class="row">
+				                <div class="card-deck">
+				            {% endif %}
+
+				            <div class="card" style="width: 226px;">
+				            	<img class="rounded card-img-top" src='/media/Profile_Me.jpg'>
+						        <div class="card-body">
+				                    <h1 class="card-title mx-1">{{ post.title }}</h1>
+				                    <p class="card-text mx-1">{{ post.intro }}</p>
+				                </div>
+				                <div class="card-footer">
+				                    <a class="btn btn-primary" role="button" href="{% url 'post_details' post.pk post.slug  %}">Read it</a>
+				                </div>
+				            </div>
+				            {% if forloop.counter|divisibleby:"3" %}
+				                </div><!-- This is the end of row -->
+				                </div><!-- This is the end of card-deck -->
+				                <br>
+				            {% endif %}
+
+				        {% endfor %}
 						{% endif %}
 				</section>
 
