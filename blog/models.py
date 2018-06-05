@@ -85,6 +85,11 @@ class Comment(models.Model):
 
 class City(models.Model):
 	name = models.CharField(max_length=100)
+	class Meta:
+		verbose_name_plural = "cities"
+
+	def __str__(self):
+		return self.name
 
 class Address(models.Model):
 	title = models.CharField(max_length=200)
@@ -92,8 +97,17 @@ class Address(models.Model):
 	city = models.ForeignKey(City)
 	pincode = models.PositiveIntegerField(blank=True)
 
+	class Meta:
+		verbose_name_plural = "addresses"
+
+	def __str__(self):
+		return self.title
+
 class DayPlan(models.Model):
 	no_of_days = models.PositiveIntegerField()
+
+	def __str__(self):
+		return self.no_of_days
 
 
 class CityPost(models.Model):
@@ -104,10 +118,11 @@ class CityPost(models.Model):
 	intro = models.TextField()
 	description = models.TextField()
 
+	def __str__(self):
+		return self.name
+
+
 class Cuisine(models.Model):
 	title = models.CharField(max_length=100)
 	description = models.TextField()
 	pic = models.ImageField(upload_to = 'media/')
-
-
-
