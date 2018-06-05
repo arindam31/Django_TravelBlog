@@ -17,7 +17,7 @@ urlpatterns = [
 	url(r'^posts/tag/(?P<tag>[\w]+)/$', views.all_posts_for_tag, name='tag_posts'),
 
 	# City related urls
-	url(r'^post/(?P<city_post_pk>\d+)/(?P<slug>[-\w\d]+)/$', views.city_post, name='city_details'),
+	url(r'^post/city/(?P<city_name>\w+)/(?P<city_post_pk>\d+)/(?P<slug>[-\w\d]+)/$', views.city_post, name='city_details'),
 ]
 
 if settings.DEBUG:

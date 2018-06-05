@@ -95,7 +95,7 @@
 				                    <p class="card-text mx-1">{{ post.intro }}</p>
 				                </div>
 				                <div class="card-footer">
-				                    <a class="btn btn-primary" role="button" href="{% url 'post_details' post.pk post.slug  %}">Read it</a>
+				                    <a class="btn btn-primary" role="button" href="{% url 'city_details' post.city.name post.pk post.slug  %}">Read it</a>
 				                </div>
 				            </div>
 				            {% if forloop.counter|divisibleby:"3" %}

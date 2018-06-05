@@ -23,9 +23,18 @@ class CityPostAdmin(admin.ModelAdmin):
 class CityAdmin(admin.ModelAdmin):
     search_fields = ['title', ]
 
-class AddressAdmin(admin.ModelAdmin):
+class RestaurantAdmin(admin.ModelAdmin):
     search_fields = ['title', ]
     list_display = ['title', 'city']
+
+class AirportAdmin(admin.ModelAdmin):
+    search_fields = ['title', ]
+    list_display = ['title', 'city']
+
+class RailwayStationAdmin(admin.ModelAdmin):
+    search_fields = ['title', ]
+    list_display = ['title', 'city']
+
 
 # Blog related models
 
@@ -37,4 +46,6 @@ admin.site.register(models.Comment, CommentAdmin)
 admin.site.register(models.CityPost, CityPostAdmin)
 admin.site.register(models.City, CityAdmin)
 admin.site.register(models.Cuisine)
-admin.site.register(models.Address, AddressAdmin)
+admin.site.register(models.Airport, AirportAdmin)
+admin.site.register(models.Restaurant, RestaurantAdmin)
+admin.site.register(models.RailwayStation, RailwayStationAdmin)

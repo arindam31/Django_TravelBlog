@@ -98,7 +98,7 @@ class Address(models.Model):
 	pincode = models.PositiveIntegerField(blank=True)
 
 	class Meta:
-		verbose_name_plural = "addresses"
+		abstract = True
 
 	def __str__(self):
 		return self.title
@@ -108,6 +108,15 @@ class DayPlan(models.Model):
 
 	def __str__(self):
 		return self.no_of_days
+
+class Airport(Address):
+	pass
+
+class Restaurant(Address):
+	pass
+
+class RailwayStation(Address):
+	pass
 
 
 class CityPost(models.Model):

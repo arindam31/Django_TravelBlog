@@ -221,10 +221,10 @@ def error_500(request):
 def about_me(request):
     return render(request, 'blog/about_me.html')
 
-def city_post(request, city_post_pk):
-    post, post_url = get_redirected(models.Post, {'pk':city_post_pk}, {'slug': slug })
-    if post_url:
-        return HttpResponseRedirect(post_url)
+def city_post(request, city_name, slug, city_post_pk):
+    city, city_url = get_redirected(models.CityPost, {'pk':city_post_pk}, {'slug': slug })
+    if city_url:
+        return HttpResponseRedirect(city_url)
     else:
-        return render(request, 'blog/city_post.html', {'post': post})
+        return render(request, 'blog/city_post.html', {'city_post': city})
 
