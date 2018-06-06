@@ -91,34 +91,6 @@ class City(models.Model):
 	def __str__(self):
 		return self.name
 
-class Address(models.Model):
-	title = models.CharField(max_length=200)
-	street = models.TextField()
-	city = models.ForeignKey(City)
-	pincode = models.PositiveIntegerField(blank=True)
-
-	class Meta:
-		abstract = True
-
-	def __str__(self):
-		return self.title
-
-class DayPlan(models.Model):
-	no_of_days = models.PositiveIntegerField()
-
-	def __str__(self):
-		return self.no_of_days
-
-class Airport(Address):
-	pass
-
-class Restaurant(Address):
-	pass
-
-class RailwayStation(Address):
-	pass
-
-
 class CityPost(models.Model):
 	title = models.CharField(max_length=100)
 	state = models.CharField(max_length=100)
@@ -140,7 +112,39 @@ class CityPost(models.Model):
 			)
 
 
+
+class Address(models.Model):
+	title = models.CharField(max_length=200)
+	street = models.TextField()
+	city = models.ForeignKey(City)
+	pincode = models.PositiveIntegerField(blank=True)
+	city_post = models.ForeignKey(CityPost, blank=True, null=True)
+
+	class Meta:
+		abstract = True
+
+	def __str__(self):
+		return self.title
+
+class DayPlan(models.Model):
+	no_of_days = models.PositiveIntegerField()
+	city_post = models.ForeignKey(CityPost, blank=True, null=True)
+
+	def __str__(self):
+		return self.no_of_days
+
+class Airport(Address):
+	pass
+
+class Restaurant(Address):
+	pass
+
+class RailwayStation(Address):
+	pass
+
+
 class Cuisine(models.Model):
 	title = models.CharField(max_length=100)
 	description = models.TextField()
 	pic = models.ImageField(upload_to = 'media/')
+	city_post = models.ForeignKey(CityPost, blank=True, null=True)
