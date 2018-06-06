@@ -15,11 +15,17 @@ background-image:         linear-gradient(to bottom, #56b0f8, #ffffff); /* Stand
 /* Source: http://patorjk.com/gradient-image-generator/; */
 }
 
+.nav-up {
+    top: -40px;
+}
+
 .navbar-default {
     background-color: #14AAF0;
     border-color: #E7E7E7;
     color: #FFFFFF; /* This is for the left text in navbar */
     border-radius: 1rem !important;
+    transition: top 0.2s ease-in-out; /* Transition effect when sliding down (and up) */
+    top: 0;
 }
 .navbar-default .navbar-nav > li > a {
     color: #FFFFFF; /* This is for items on the right of navbar */
