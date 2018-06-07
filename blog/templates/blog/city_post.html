@@ -9,19 +9,17 @@
 {% block content %}
 <div class="container-fluid mb-4">
     <div class="row">
-        <div class="col-md-10 col-lg-8 col-xl-10 col-sm-12">
-            <div class="card bg-dark text-white">
-                <img class="card-img" src="/media/Pune_City.jpg" alt="Card image">
-                <div class="card-img-overlay">
-                    <h1 class="card-title"><em>{{ city_post.title }}</em>  <strong>City</strong></h1>
-                    <p class="card-text">{{ city_post.intro }}</p>
-                </div>
-            </div>
+        <div class="col-md-8 col-lg-8 col-xl-10 col-sm-8">
+            <h1><em>{{ city_post.title }}</em>  <strong>City</strong></h1>
+            <p>{{ city_post.intro }}</p>
+            <hr class="hr">
         </div>
-        <div class="col-md-2 col-lg-4 col-xl-2 d-none d-md-block">
+
+
+        <div class="col-md-4 col-lg-4 col-xl-2 col-sm-4">
             {% if airports %}
                 {% for airport in airports %}
-                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                    <div class="card border-primary mb-3">
                       <div class="card-header">{{ airport.title }}</div>
                       <div class="card-body">
                         <address>
@@ -35,7 +33,7 @@
 
             {% if stations %}
                 {% for station in stations %}
-                    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                    <div class="card border-primary  mb-3">
                       <div class="card-header">{{ station.title }}</div>
                       <div class="card-body">
                         <address>
@@ -51,7 +49,6 @@
     </div>
 </div>
 <div class="container-fluid">
-
 
 
 

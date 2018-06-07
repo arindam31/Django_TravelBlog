@@ -112,18 +112,6 @@ background-image:         linear-gradient(to bottom, #56b0f8, #ffffff); /* Stand
     margin: 20px 0px 20px 20px;
 }
 
-hr { /* This is horizontal line..Below are the bootstrap properties for a hr class */
-  -moz-border-bottom-colors: none;
-  -moz-border-image: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  border-color: #EEEEEE -moz-use-text-color #FFFFFF;
-  border-style: solid none;
-  border-width: 2px 0;
-  margin: 18px 0;
-}
-
 
 .cover {
   margin-top:10rem;
@@ -152,4 +140,10 @@ hr { /* This is horizontal line..Below are the bootstrap properties for a hr cla
 	margin-bottom:30px;
 }
 
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
 
