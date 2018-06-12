@@ -37,7 +37,7 @@ class RailwayStationAdmin(admin.ModelAdmin):
 
 class DayPlanAdmin(admin.ModelAdmin):
     search_fields = ['__str__']
-    list_display = ['city_post', 'no_of_days', ]
+    list_display = ['__str__', 'no_of_days', ]
 
 class VisitPointAdmin(admin.ModelAdmin):
     search_fields = ['title', ]

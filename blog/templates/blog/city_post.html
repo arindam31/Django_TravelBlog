@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block head %}
-<title>{{city.title}}</title>
+<title>{{city_post.title}}</title>
 {% endblock %}
 
 {% block content %}
@@ -16,7 +16,8 @@
 
 
             {% if day_plans %}
-                <div class="row">
+                <h2 class="display 5">Day Plans</h2>
+                <div class="row mt-4">
                 {% for plan in day_plans %}
                     <div class="col-auto mb-3">
                     <div class="card" style="width: 18rem">
@@ -34,7 +35,26 @@
                 {% endfor %}
                 </div>
             {% endif%}
-        </div>
+
+
+            <h2 class="display 5">Must See Attractions</h2>
+            <div class="row mt-3">
+                {% for point in must_see %}
+                <div class="col-auto mb-4">
+                        <div class="card" style="width: 18rem">
+                            <div class="card-header">
+                                {{ point.title }}
+                            </div>
+                            <div class="card-body">
+                                {{ point.intro }}
+                            </div>
+                        </div>
+                        
+                </div>
+                {% endfor %}
+    
+             </div>
+        </div>     
 
 
         <div class="col-md-4 col-lg-4 col-xl-2 col-sm-4">
@@ -74,11 +94,6 @@
 
 
 
-    {% if must_see %}
-        {% for point in must_see %}
-    	   {{ point }
-        {% endfor %}
-    {% endif %}
 
     {% if must_try %}
     {% for cuisine in must_try %}

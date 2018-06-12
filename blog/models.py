@@ -117,7 +117,7 @@ class Address(models.Model):
 	title = models.CharField(max_length=200)
 	street = models.TextField()
 	city = models.ForeignKey(City)
-	pincode = models.PositiveIntegerField(blank=True)
+	pincode = models.PositiveIntegerField(null=True, blank=True)
 	city_post = models.ForeignKey(CityPost, blank=True, null=True)
 
 	class Meta:
@@ -129,6 +129,8 @@ class Address(models.Model):
 
 class VisitPoint(Address):
 	timings = models.CharField(blank=True, max_length=100)
+	must_see = models.BooleanField(default=False)
+	intro = models.CharField(default='', blank=True, max_length=200)
 
 
 class DayPlan(models.Model):
