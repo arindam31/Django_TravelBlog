@@ -83,5 +83,86 @@ class Comment(models.Model):
 	def __str__(self):
 		return self.detail
 
+class City(models.Model):
+	name = models.CharField(max_length=100)
+	class Meta:
+		verbose_name_plural = "cities"
+
+	def __str__(self):
+		return self.name
+
+class CityPost(models.Model):
+	title = models.CharField(max_length=100)
+	state = models.CharField(max_length=100)
+	city = models.ForeignKey(City)
+	best_month = models.DateField(max_length=30)
+	intro = models.TextField()
+	description = models.TextField()
+	created_date = models.DateTimeField(default=timezone.now)
+	published = models.BooleanField(default=False)
+	slug = models.SlugField(max_length=100, blank=False, default=title)
+
+	def __str__(self):
+		return self.title
+
+	def get_absolute_url(self):
+		return reverse(
+			'city_post',
+			kwargs={'slug': self.slug, 'city_post_pk': self.id }
+			)
 
 
+
+class Address(models.Model):
+	title = models.CharField(max_length=200)
+	street = models.TextField()
+	city = models.ForeignKey(City)
+	pincode = models.PositiveIntegerField(null=True, blank=True)
+	city_post = models.ForeignKey(CityPost, blank=True, null=True)
+
+	class Meta:
+		abstract = True
+
+	def __str__(self):
+		return self.title
+
+
+class VisitPoint(Address):
+	timings = models.CharField(blank=True, max_length=100)
+	must_see = models.BooleanField(default=False)
+	intro = models.CharField(default='', blank=True, max_length=200)
+
+
+class DayPlan(models.Model):
+	no_of_days = models.PositiveIntegerField()
+	city_post = models.ForeignKey(CityPost, blank=True, null=True)
+	visit_points = models.ManyToManyField(VisitPoint, blank=True)
+
+	def __str__(self):
+		return '_'.join([str(self.no_of_days) , self.city_post.title])
+
+	def plan_heading(self):
+		if self.no_of_days == 1:
+			return '1 Day'
+		elif self.no_of_days == 2:
+			return '{} Night {} Days'.format(self.no_of_days-1, self.no_of_days)
+		else:
+			return '{} Nights {} Days'.format(self.no_of_days-1, self.no_of_days)
+
+
+class Airport(Address):
+	pass
+
+class Restaurant(Address):
+	pass
+
+class RailwayStation(Address):
+	pass
+
+
+
+class Cuisine(models.Model):
+	title = models.CharField(max_length=100)
+	description = models.TextField()
+	pic = models.ImageField(upload_to = 'media/')
+	city_post = models.ForeignKey(CityPost, blank=True, null=True)

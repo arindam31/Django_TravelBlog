@@ -6,6 +6,7 @@
 
 {% block content %}
 
+<div class="graduating_blue">
 <div class="text-center">
 	<div class="cover-container pb-5">
 		<div class="cover-inner container">
@@ -43,6 +44,7 @@
 		</div>
 	</div>
 </section>
+</div>
 
 
 <div class="container">
@@ -72,6 +74,39 @@
 				<p class="lead">Created On: {{latest_post.created_date}}</p>
 				<a class="btn btn-primary" role="button" href="{% url 'post_details' latest_post.pk latest_post.slug  %}">Read it</a>
 
+				<section id="cities">
+					<h1 class="display-4 mt-4 mb-4">City
+								<span class="my_fav_blue">
+								Times
+								</span>
+								</h1>
+						{% if cities %}
+
+				        {% for post in cities %}
+				            {% if forloop.counter0|divisibleby:"3" %}
+				                <div class="row">
+				                <div class="card-deck">
+				            {% endif %}
+
+				            <div class="card" style="width: 226px;">
+				            	<img class="rounded card-img-top" src='/media/Profile_Me.jpg'>
+						        <div class="card-body">
+				                    <h1 class="card-title mx-1">{{ post.title }}</h1>
+				                </div>
+				                <div class="card-footer">
+				                    <a class="btn btn-primary" role="button" href="{% url 'city_details' post.city.name post.pk post.slug  %}">Read it</a>
+				                </div>
+				            </div>
+				            {% if forloop.counter|divisibleby:"3" %}
+				                </div><!-- This is the end of row -->
+				                </div><!-- This is the end of card-deck -->
+				                <br>
+				            {% endif %}
+
+				        {% endfor %}
+						{% endif %}
+				</section>
+
 		    </div>
 
 		    <div class="col-md-3  offset-md-1">
@@ -94,6 +129,5 @@
 		  </div>
 		</div>
 </section>
-
 
 {% endblock %}

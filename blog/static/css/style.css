@@ -1,3 +1,13 @@
+body {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  color: #46484a;
+}
+a  {
+  color: #000000;
+   }
+
 header {
 	margin: 2rem 0;
 }
@@ -6,11 +16,26 @@ header {
   color: #13A1DA;
              }
 
+.graduating_blue {
+background-image: -webkit-linear-gradient(top, #56b0f8, #ffffff); /* For Chrome and Safari */
+background-image:    -moz-linear-gradient(top, #56b0f8, #ffffff); /* For old Fx (3.6 to 15) */
+background-image:     -ms-linear-gradient(top, #56b0f8, #ffffff); /* For pre-releases of IE 10*/
+background-image:      -o-linear-gradient(top, #56b0f8, #ffffff); /* For old Opera (11.1 to 12.0) */
+background-image:         linear-gradient(to bottom, #56b0f8, #ffffff); /* Standard syntax; must be last */
+/* Source: http://patorjk.com/gradient-image-generator/; */
+}
+
+.nav-up {
+    top: -40px;
+}
+
 .navbar-default {
     background-color: #14AAF0;
     border-color: #E7E7E7;
     color: #FFFFFF; /* This is for the left text in navbar */
     border-radius: 1rem !important;
+    transition: top 0.2s ease-in-out; /* Transition effect when sliding down (and up) */
+    top: 0;
 }
 .navbar-default .navbar-nav > li > a {
     color: #FFFFFF; /* This is for items on the right of navbar */
@@ -87,18 +112,6 @@ header {
     margin: 20px 0px 20px 20px;
 }
 
-hr { /* This is horizontal line..Below are the bootstrap properties for a hr class */
-  -moz-border-bottom-colors: none;
-  -moz-border-image: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  border-color: #EEEEEE -moz-use-text-color #FFFFFF;
-  border-style: solid none;
-  border-width: 2px 0;
-  margin: 18px 0;
-}
-
 
 .cover {
   margin-top:10rem;
@@ -127,4 +140,10 @@ hr { /* This is horizontal line..Below are the bootstrap properties for a hr cla
 	margin-bottom:30px;
 }
 
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
 

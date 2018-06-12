@@ -1,0 +1,105 @@
+{% extends 'blog/new_blog_base.html' %}
+{% load account socialaccount %}
+{% load i18n %}
+
+{% block head %}
+<title>{{city_post.title}}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-4">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-xl-10 col-sm-8">
+            <h1><em>{{ city_post.title }}</em>  <strong>City</strong></h1>
+            <p>{{ city_post.intro }}</p>
+            <hr class="hr">
+
+
+            {% if day_plans %}
+                <h2 class="display 5">Day Plans</h2>
+                <div class="row mt-4">
+                {% for plan in day_plans %}
+                    <div class="col-auto mb-3">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-header">{{ plan.plan_heading }}</div>
+                        <div class="card-body">
+                            <h4> Points to Visit</h4>
+                            <ul class="list-unstyled">
+                                {% for point in plan.visit_points.all %}
+                                    <li> {{ point.title }}</li>
+                                {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif%}
+
+
+            <h2 class="display 5">Must See Attractions</h2>
+            <div class="row mt-3">
+                {% for point in must_see %}
+                <div class="col-auto mb-4">
+                        <div class="card" style="width: 18rem">
+                            <div class="card-header">
+                                {{ point.title }}
+                            </div>
+                            <div class="card-body">
+                                {{ point.intro }}
+                            </div>
+                        </div>
+                        
+                </div>
+                {% endfor %}
+    
+             </div>
+        </div>     
+
+
+        <div class="col-md-4 col-lg-4 col-xl-2 col-sm-4">
+            {% if airports %}
+                {% for airport in airports %}
+                    <div class="card border-primary mb-3">
+                      <div class="card-header">{{ airport.title }}</div>
+                      <div class="card-body">
+                        <address>
+                        <h5 class="card-title">{{ airport.street }}</h5>
+                        <p class="card-text">{{ airport.city }}{{ airport.Pincode }}</p>
+                        </address>
+                      </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if stations %}
+                {% for station in stations %}
+                    <div class="card border-primary  mb-3">
+                      <div class="card-header">{{ station.title }}</div>
+                      <div class="card-body">
+                        <address>
+                        <h5 class="card-title">{{ station.street }}</h5>
+                        <p class="card-text">{{ station.city }}{{ station.Pincode }}</p>
+                        </address>
+                      </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+
+
+
+
+    {% if must_try %}
+    {% for cuisine in must_try %}
+    	{{ cuisine }}
+    {% endfor %}
+    {% endif %}
+
+</div>
+{% endblock %}

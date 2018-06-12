@@ -1,23 +1,41 @@
-var previousScroll = 0;
-headerOrgOffset = $('#header').height();
+/* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('#sitenav').outerHeight();
 
-$('#header-wrap').height($('#header').height());
-
-$(window).scroll(function() {
-    var currentScroll = $(this).scrollTop();
-    if(currentScroll > headerOrgOffset) {
-        if (currentScroll > previousScroll) {
-            $('#header').animate({
-                 top: '-60px'      //Change to Height of header
-            }, 250);               //Mess with animate time
-        } else {
-            $('#header').animate({
-                 top: '0px'
-            },250);
-            $('#header').addClass('fixed');
-        }
-    } else {
-         $('#header').removeClass('fixed');   
-    }
-    previousScroll = currentScroll;
+$(window).scroll(function(event){
+    didScroll = true;
 });
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta){
+        return;
+    }
+
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('#sitenav').removeClass('nav-down').addClass('nav-up');
+
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('#sitenav').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+
+    lastScrollTop = st;
+}
