@@ -35,6 +35,14 @@ class RailwayStationAdmin(admin.ModelAdmin):
     search_fields = ['title', ]
     list_display = ['title', 'city']
 
+class DayPlanAdmin(admin.ModelAdmin):
+    search_fields = ['__str__']
+    list_display = ['city_post', 'no_of_days', ]
+
+class VisitPointAdmin(admin.ModelAdmin):
+    search_fields = ['title', ]
+    list_display = ['title', 'city', 'timings']
+
 
 # Blog related models
 
@@ -49,3 +57,5 @@ admin.site.register(models.Cuisine)
 admin.site.register(models.Airport, AirportAdmin)
 admin.site.register(models.Restaurant, RestaurantAdmin)
 admin.site.register(models.RailwayStation, RailwayStationAdmin)
+admin.site.register(models.DayPlan, DayPlanAdmin)
+admin.site.register(models.VisitPoint, VisitPointAdmin)

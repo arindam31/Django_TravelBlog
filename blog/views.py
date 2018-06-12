@@ -225,10 +225,15 @@ def city_post(request, city_name, slug, city_post_pk):
     city, city_url = get_redirected(models.CityPost, {'pk':city_post_pk}, {'slug': slug })
     airports = models.Airport.objects.filter(city_post=city_post_pk)
     stations = models.RailwayStation.objects.filter(city_post=city_post_pk)
+    day_plans = models.DayPlan.objects.filter(city_post=city_post_pk)
 
     if city_url:
         return HttpResponseRedirect(city_url)
     else:
         return render(request, 'blog/city_post.html',
-            {'city_post': city, 'airports': airports, 'stations':stations})
-
+            {
+            'city_post': city,
+            'airports': airports,
+            'stations':stations,
+            'day_plans':day_plans,
+            })

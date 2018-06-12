@@ -126,12 +126,27 @@ class Address(models.Model):
 	def __str__(self):
 		return self.title
 
+
+class VisitPoint(Address):
+	timings = models.CharField(blank=True, max_length=100)
+
+
 class DayPlan(models.Model):
 	no_of_days = models.PositiveIntegerField()
 	city_post = models.ForeignKey(CityPost, blank=True, null=True)
+	visit_points = models.ManyToManyField(VisitPoint, blank=True)
 
 	def __str__(self):
-		return self.no_of_days
+		return '_'.join([str(self.no_of_days) , self.city_post.title])
+
+	def plan_heading(self):
+		if self.no_of_days == 1:
+			return '1 Day'
+		elif self.no_of_days == 2:
+			return '{} Night {} Days'.format(self.no_of_days-1, self.no_of_days)
+		else:
+			return '{} Nights {} Days'.format(self.no_of_days-1, self.no_of_days)
+
 
 class Airport(Address):
 	pass
@@ -141,6 +156,7 @@ class Restaurant(Address):
 
 class RailwayStation(Address):
 	pass
+
 
 
 class Cuisine(models.Model):

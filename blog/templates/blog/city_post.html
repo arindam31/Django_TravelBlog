@@ -13,6 +13,27 @@
             <h1><em>{{ city_post.title }}</em>  <strong>City</strong></h1>
             <p>{{ city_post.intro }}</p>
             <hr class="hr">
+
+
+            {% if day_plans %}
+                <div class="row">
+                {% for plan in day_plans %}
+                    <div class="col-auto mb-3">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-header">{{ plan.plan_heading }}</div>
+                        <div class="card-body">
+                            <h4> Points to Visit</h4>
+                            <ul class="list-unstyled">
+                                {% for point in plan.visit_points.all %}
+                                    <li> {{ point.title }}</li>
+                                {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif%}
         </div>
 
 
@@ -52,11 +73,6 @@
 
 
 
-    {% if day_plans %}
-    	{% for plan in day_plans %}
-    		{{ plan }}
-    	{% endfor %}
-    {% endif%}
 
     {% if must_see %}
         {% for point in must_see %}
