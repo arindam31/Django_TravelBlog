@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-
 from .models import Post
 
 class TestPostModel(TestCase):
@@ -33,7 +32,17 @@ class TestBlogViews(TestCase):
             favourite=True)
         self.client = Client()
 
-    def test_home_page(self):
-        response = self.client.get(reverse('home'))
-        self.assertEqual(200, response.status_code)
+    def test_pages(self):
+        list_names = ['post_list',  'about_me', 'post_search']
+        err_list = []
+
+        for name in list_names:
+            response = self.client.get(reverse(name))
+            if not response.status_code == 200:
+                err_list.append('For %s, received status code: %s' % (name, response.status_code))
+        if err_list:
+            self.fail('Issues found. See the list: %s' % err_list)
+
+
+
 
