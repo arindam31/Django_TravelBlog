@@ -34,12 +34,6 @@ class Post(models.Model):
 		self.published = True
 		self.save()
 
-	#def get_absolute_url(self):
-	#	return reverse(
-	#			'post_details',
-	#		kwargs={'post_pk':self.id}
-	#			)
-
 	def get_absolute_url(self):
 		return reverse(
 			'post_details',
@@ -84,6 +78,9 @@ class Comment(models.Model):
 		return self.detail
 
 class City(models.Model):
+	"""
+	City is just a name.
+	"""
 	name = models.CharField(max_length=100)
 	class Meta:
 		verbose_name_plural = "cities"
@@ -92,6 +89,9 @@ class City(models.Model):
 		return self.name
 
 class CityPost(models.Model):
+	"""
+	A city post is an article about a City.
+	"""
 	title = models.CharField(max_length=100)
 	state = models.CharField(max_length=100)
 	city = models.ForeignKey(City)
@@ -114,6 +114,10 @@ class CityPost(models.Model):
 
 
 class Address(models.Model):
+	"""
+	This is an abstract class. Everything is an address .
+	Example: Airport, Station, Restaurent, or a place of interest.
+	"""
 	title = models.CharField(max_length=200)
 	street = models.TextField()
 	city = models.ForeignKey(City)
@@ -128,12 +132,32 @@ class Address(models.Model):
 
 
 class VisitPoint(Address):
+	"""
+
+	A VisitPoint is a point in the city , the tourist can visit.
+	Its has some extra fields apart from Address attribs:
+
+	1. Timings: Usually visit points has timing limitations.
+	2. must_see boolean helps filtering/marking a point as must see or
+	casual/low prioriry.
+	3. Intro: Short one liner introduction.
+
+	"""
 	timings = models.CharField(blank=True, max_length=100)
 	must_see = models.BooleanField(default=False)
 	intro = models.CharField(default='', blank=True, max_length=200)
 
 
 class DayPlan(models.Model):
+	"""
+	A day plan is a possible combination for a tourist. He can plan his visit
+	using anyone. Attribs are:
+
+	1. No of days : Total duration of stay.
+	2. Which City Post.
+	3. What City Points to visit.
+
+	"""
 	no_of_days = models.PositiveIntegerField()
 	city_post = models.ForeignKey(CityPost, blank=True, null=True)
 	visit_points = models.ManyToManyField(VisitPoint, blank=True)
@@ -142,6 +166,12 @@ class DayPlan(models.Model):
 		return '_'.join([str(self.no_of_days) , self.city_post.title])
 
 	def plan_heading(self):
+		"""
+		This method is needed to create the Day pLan heading. It's
+		directly called from template like: day_plan.plan_heading
+
+		Format: N Nights D Days
+		"""
 		if self.no_of_days == 1:
 			return '1 Day'
 		elif self.no_of_days == 2:
@@ -162,7 +192,16 @@ class RailwayStation(Address):
 
 
 class Cuisine(models.Model):
+	"""
+	Cuisine class for Dishes.
+	1. Title
+	2. Description
+	3. Single Image
+	4. Which City Post
+	5. Which Restaurent #TODO
+	"""
 	title = models.CharField(max_length=100)
 	description = models.TextField()
 	pic = models.ImageField(upload_to = 'media/')
 	city_post = models.ForeignKey(CityPost, blank=True, null=True)
+

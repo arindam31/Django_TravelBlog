@@ -16,7 +16,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 class CityPostAdmin(admin.ModelAdmin):
     search_fields = ['title', ]
-    ordering = ['-created_date', ]
+    ordering = ['-created_date', ] # This is show by latest date on top
     list_display = ['title', 'created_date', 'published']
     list_editable = ['published', ]
 
@@ -36,6 +36,8 @@ class RailwayStationAdmin(admin.ModelAdmin):
     list_display = ['title', 'city']
 
 class DayPlanAdmin(admin.ModelAdmin):
+
+    # Note : __str__ gives the output of the __str__ method defined under the model
     search_fields = ['__str__']
     list_display = ['__str__', 'no_of_days', ]
 

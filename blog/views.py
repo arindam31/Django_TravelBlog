@@ -11,7 +11,6 @@ from . import models
 from . import forms
 
 
-# Create your views here.
 def post_list(request):
     if not request.user.is_staff or not request.user.is_superuser:
         posts = models.Post.objects.filter(published=True, created_date__lte=timezone.now()).order_by('published_date')
@@ -149,6 +148,12 @@ def post_comment_on_fly(request):
     return HttpResponse(body)
 
 def home(request):
+    """
+    ************ Home Page *************
+    This is the view for launch page .
+    We show here a mix of all kinds of things, like
+    posts , latest , favourites , tags and city posts.
+    """
     tags = get_all_tags()
     fav_posts = get_favourites()
     latest_post, latest_post_image = get_latest_post()
@@ -158,7 +163,7 @@ def home(request):
         if first_image:
             post.first_image = first_image
         else:
-            post.first_image = '#'
+            post.first_image = '#' # Hash means...no link supplied..so no effect
 
     for post in all_posts:
         first_image = get_images_from_post_description(post.pk)
@@ -219,13 +224,30 @@ def error_500(request):
     return render(request, 'blog/error_500.html')
 
 def about_me(request):
+    """
+    This is a staic wiki page for the Author
+    """
     return render(request, 'blog/about_me.html')
 
 def city_post(request, city_name, slug, city_post_pk):
+    """
+    ************ City Page *************
+    This page need city specific details.
+
+    1. Airports
+    2. Railway Stations
+    3. Day Plans
+    4. Must see points
+    5. Must Try Cuisines
+    """
     city_post, city_url = get_redirected(models.CityPost, {'pk':city_post_pk}, {'slug': slug })
     airports = models.Airport.objects.filter(city_post=city_post_pk)
     stations = models.RailwayStation.objects.filter(city_post=city_post_pk)
+
+    #Get all Pay Plans for this City Post
     day_plans = models.DayPlan.objects.filter(city_post=city_post_pk)
+
+    #Get all must_see VisitPoints for the City
     must_see_points = city_post.city.visitpoint_set.filter(must_see=True)
 
     if city_url:
