@@ -18,8 +18,18 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404, handler500
-from blog import views
 
+from rest_framework import routers # All this for our new version of API v2
+
+from blog import views
+from blog import api
+
+# Routers help us, not explicitly create urls , like we did for v1.
+# Routers will create the URLs automatically for us.
+
+router = routers.SimpleRouter()
+router.register('posts', api.PostViewSet)
+router.register('comments', api.CommentViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,11 +38,13 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/posts/', include('blog.api_url')),
-]   + static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT) + static(
-        settings.STATIC_URL,
-        document_root=settings.STATIC_ROOT)
+    url(r'^api/v2/', include(router.urls, namespace='apiv2')),
+
+             ]   + static(
+                settings.MEDIA_URL,
+                    document_root=settings.MEDIA_ROOT) + static(
+                settings.STATIC_URL,
+                    document_root=settings.STATIC_ROOT)
 
 
 handler500 = views.error_500
