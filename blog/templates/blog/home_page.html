@@ -88,13 +88,13 @@
 				                <div class="card-deck">
 				            {% endif %}
 
-				            <div class="card" style="width: 226px;">
-				            	<img class="rounded card-img-top" src='/media/Profile_Me.jpg'>
+				            <div class="card" style="width: 300px;">
+				            	<img class="rounded card-img-top" src='/media/Pune_Bhugaon.jpg'>
 						        <div class="card-body">
-				                    <h1 class="card-title mx-1">{{ post.title }}</h1>
+				                    <h4 class="card-title">{{ post.title }}</h4>
 				                </div>
 				                <div class="card-footer">
-				                    <a class="btn btn-primary" role="button" href="{% url 'city_details' post.city.name post.pk post.slug  %}">Read it</a>
+				                    <a class="btn btn-primary" role="button" href="{% url 'city_details' post.city.name post.pk post.slug  %}">Read</a>
 				                </div>
 				            </div>
 				            {% if forloop.counter|divisibleby:"3" %}
