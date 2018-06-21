@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
@@ -32,10 +33,25 @@ class ListCreateComment(generics.ListCreateAPIView):
     serializer_class = serializers.CommentSerializers
 
     def get_queryset(self):
+        # get_queryset returns  multiple objects
         return self.queryset.filter(post_id=self.kwargs.get('post_pk'))
 
+    def perform_create(self):
+        #This is the method which is run, right when object is being created by the view.
+        post = get_object_or_404(models.Post, pk=self.kwargs.get('post_pk'))
+        serializer.save(post=post)
+
+
 class RetriveUpdateDestroyComment(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Post.objects.all()
-    serializer_class = serializers.PostSerializers
+    queryset = models.Comment.objects.all()
+    serializer_class = serializers.CommentSerializers
+
+    def get_object(self):
+        # Returns a single object
+        return get_object_or_404(
+                self.get_queryset(),
+                post=self.kwargs.get('post_pk'),
+                pk=self.kwargs.get('pk')
+                )
 
 

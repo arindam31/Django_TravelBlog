@@ -64,10 +64,6 @@ class Comment(models.Model):
 		ordering = ['-created_date'] # Negative sign is for descending order
 		                             # in model.objects.all response
 
-	def approve(self):
-		self.approve_comment = True
-		self.save()
-
 	def get_absolute_url(self):
 		return reverse(
 			'post_details',
