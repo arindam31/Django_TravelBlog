@@ -10,10 +10,11 @@
 <div class="container-fluid mb-4">
     <div class="row">
         <div class="col-md-8 col-lg-8 col-xl-10 col-sm-8">
-            <h1><em>{{ city_post.title }}</em>  <strong>City</strong></h1>
+            <div style="background:transparent url('/media/Pune_Bhugaon.jpg') no-repeat center center /cover">
+            <h2 style="color: white"><em>{{ city_post.title }}</em>  <strong>City</strong></h2>
             <p>{{ city_post.intro }}</p>
-            <hr class="hr">
-
+            <hr class="hr" />
+        </div>
 
             {% if day_plans %}
                 <h2 class="display 5">Day Plans</h2>
@@ -23,7 +24,6 @@
                     <div class="card" style="width: 18rem">
                         <div class="card-header">{{ plan.plan_heading }}</div>
                         <div class="card-body">
-                            <h4> Points to Visit</h4>
                             <ul class="list-unstyled">
                                 {% for point in plan.visit_points.all %}
                                     <li> {{ point.title }}</li>
@@ -64,8 +64,8 @@
                       <div class="card-header">{{ airport.title }}</div>
                       <div class="card-body">
                         <address>
-                        <h5 class="card-title">{{ airport.street }}</h5>
-                        <p class="card-text">{{ airport.city }}{{ airport.Pincode }}</p>
+                        <p class="card-title">{{ airport.street }}</p>
+                        <p class="card-text">{{ airport.city }}, {{ airport.pincode }}</p>
                         </address>
                       </div>
                     </div>
@@ -79,7 +79,7 @@
                       <div class="card-body">
                         <address>
                         <h5 class="card-title">{{ station.street }}</h5>
-                        <p class="card-text">{{ station.city }}{{ station.Pincode }}</p>
+                        <p class="card-text">{{ station.city }}, {{ station.pincode }}</p>
                         </address>
                       </div>
                     </div>
@@ -90,11 +90,6 @@
     </div>
 </div>
 <div class="container-fluid">
-
-
-
-
-
     {% if must_try %}
     {% for cuisine in must_try %}
     	{{ cuisine }}
