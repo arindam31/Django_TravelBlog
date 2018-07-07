@@ -5,7 +5,7 @@ class PostSerializers(serializers.ModelSerializer):
 
     class Meta:
     	model = models.Post
-        depth = 1
+        depth = 1 # This helps see full details of tags 
     	fields = ('title', 'pk', 'created_date', 'published_date', 'likes', 'favourite', 'tags', 'published')
 
 class CommentSerializers(serializers.ModelSerializer):
