@@ -42,6 +42,19 @@ URL : http://arindam31.pythonanywhere.com
 6) ## Social Logins
    No need to register . One can use Google and Github to login . Login allows user to post comments .
 
+7) ## Tests
+
+   Tests are included under blog/tests/ . These include test for models, views, and API.
+   To run them , you can use standard command or use **nose plugin**.
+
+   Standard format:
+
+   * **To run all tests**: python manage.py test blog
+   * **To run a specific file**: python manage.py test blog.tests.test_api
+   * **To run a specific test class**: python manage.py test blog.tests.tests_blog.TestPostModel
+   * **To run a single test**: python manage.py test blog.tests.tests_blog.TestPostModel.test_get_images_from_post_description
+
+
 # To be implemented:
 
 1. Dashboard with details (post views, likes , date created etc)
