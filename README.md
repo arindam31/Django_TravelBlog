@@ -63,5 +63,5 @@ URL : http://arindam31.pythonanywhere.com
 
 ### Snapshot (Website Home Page)
 
-![Home Page Full Scroll](https://photos.google.com/share/AF1QipPe57RKmFDGgBbDMcFjBfJlJ270ZfMq4qYuup1QKi07eIEGCxefHeQUsm80KXO8Bw/photo/AF1QipPcKvGc5a9qyWVvRx916AqL2DBE566o3aU7eDnn?key=UDNOaFlGT01JMjZXdHhpM0NkQ0YwOVRqb0VNU29B)
+![Home Page Full Scroll](https://github.com/arindam31/Flask-URLMonitoringTool/blob/master/screenshot_homepage.png)
 
