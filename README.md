@@ -63,5 +63,5 @@ URL : http://arindam31.pythonanywhere.com
 
 ### Snapshot (Website Home Page)
 
-![Home Page Full Scroll](https://github.com/arindam31/Django_TravelBlog/blob/master/media/screenshot_homepage.png
+![Home Page Full Scroll](https://github.com/arindam31/Django_TravelBlog/blob/master/media/screenshot_homepage.png)
 
