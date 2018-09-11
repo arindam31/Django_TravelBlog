@@ -61,3 +61,6 @@ URL : http://arindam31.pythonanywhere.com
 1. Add share buttons for FB , Quora , and others.
 1. Create a travel planner To-Do list . User should be logged-in to avail this.
 
+### Snapshot (Website Home Page)
+![Home page](https://photos.google.com/album/AF1QipM3bnI3nmStYbqJEwh7d08KgTBVs2DtoZNZnx1Q/photo/AF1QipPcKvGc5a9qyWVvRx916AqL2DBE566o3aU7eDnn)
+
