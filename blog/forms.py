@@ -1,11 +1,18 @@
-from django import forms
+"""
+Module foe forms used in blog.
+"""
+
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
-from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
+from crispy_forms.layout import Field, Layout
+from django import forms
+
 from . import models
 
+
 class BlogPostForm(forms.ModelForm):
+    """ Definition of form for Blog Post."""
     class Meta:
+        """Meta Class"""
         model = models.Post
         fields = ['title', 'text', 'tags', 'author', 'slug']
     helper = FormHelper()
@@ -20,7 +27,9 @@ class BlogPostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    """ Definition of form for Comment."""
     class Meta:
+        """Meta Class"""
         model = models.Comment
         fields = ['detail', ]
 
@@ -29,4 +38,3 @@ class CommentForm(forms.ModelForm):
     helper.layout = Layout(
         Field('detail', rows="3", css_class='form-control'),
             )
-

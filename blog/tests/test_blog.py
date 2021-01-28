@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.test import TestCase
-from django.test import Client
+from django.test import Client, TestCase
 from django.urls import reverse
+
 from blog.models import Post
+
 
 class TestPostModel(TestCase):
 
@@ -27,17 +28,17 @@ class TestBlogViews(TestCase):
 
     def setUp(self):
         user = User.objects.create(first_name="Firstname")
-        self.a_post = Post(author=user, title="Test Post",
-            text="Some text", slug='test_post', pk=1,
+        self.a_post = Post(author=user, title="Test Story",
+            text="Some text", slug='test_story', pk=1,
             favourite=True)
         self.client = Client()
 
     def test_pages(self):
-        list_names = ['post_list',  'about_me', 'post_search']
+        list_names = [('post_list', None),  ('about_me', None), ('post_search', {'keyword': "Story"})]
         err_list = []
 
-        for name in list_names:
-            response = self.client.get(reverse(name))
+        for name, data in list_names:
+            response = self.client.get(reverse(name), data)
             if not response.status_code == 200:
                 err_list.append('For %s, received status code: %s' % (name, response.status_code))
         if err_list:

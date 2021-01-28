@@ -1,6 +1,0 @@
-1) Dashboard with info like no of likes, visits etc, weekly , monthly 
-2) Comments or reviews.
-3) Token based auth preferably using google.
-4) Fixed footer (prefarably comments should be here ...we can may be expand footer all  the way)
-5) Fixed "Like" button. 
-6) May be add a better search (This might be for ONLY learning purpose)

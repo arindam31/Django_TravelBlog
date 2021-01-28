@@ -1,7 +1,9 @@
+"""
+This module contains all URLs for app blog.
+"""
+
 from django.conf.urls import url
-from django.contrib import admin
-from django.conf.urls import include
-from django.conf import settings
+
 from . import views
 
 urlpatterns = [
@@ -17,12 +19,8 @@ urlpatterns = [
 	url(r'^posts/tag/(?P<tag>[\w]+)/$', views.all_posts_for_tag, name='tag_posts'),
 
 	# City related urls
-	url(r'^post/city/(?P<city_name>\w+)/(?P<city_post_pk>\d+)/(?P<slug>[-\w\d]+)/$', views.city_post, name='city_details'),
+	url(
+		r'^post/city/(?P<city_name>\w+)/(?P<city_post_pk>\d+)/(?P<slug>[-\w\d]+)/$',
+		views.city_post,
+		name='city_details'),
 ]
-
-if settings.DEBUG:
-	urlpatterns += [
-		url('^error/404/$', views.error_404, name='404page'),
-		url('^error/500/$', views.error_500, name='500page'),
-					]
-

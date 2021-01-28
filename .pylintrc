@@ -1,0 +1,12 @@
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=100
+
+# Add files or directories to the blacklist. They should be base names, not
+# paths.
+ignore=venv, static, media, migrations, tests
+
+init-hook=import sys; sys.path.insert(0, 'Django_TravelBlog/blog');
+
+disable=E0307, E1101, R0903, W0311, R1710, C0103, R0901
