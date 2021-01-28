@@ -2,3 +2,5 @@
 *.pyc.swp
 *.py.swp
 *.idea
+Ideas.txt
+venv/

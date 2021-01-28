@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from . import views
-from . import api
+
+from . import api, views
 
 urlpatterns = [
         url(r'^$', api.PostCreateApi.as_view(), name='api_post_list'),

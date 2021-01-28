@@ -1,13 +1,14 @@
+import json
+import pdb
+
+from django.contrib.auth.models import User
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APIClient
-from django.test import TestCase, RequestFactory
-from django.contrib.auth.models import User
-from blog.models import Post
-from rest_framework.test import APIRequestFactory, APITestCase
-import pdb
+from rest_framework.test import APIClient, APIRequestFactory, APITestCase
+
 from blog.api import ListPostApi
-import json
+from blog.models import Post
 
 
 class BlogApiTests(APITestCase):

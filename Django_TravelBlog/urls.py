@@ -17,9 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import handler404, handler500
 
-from rest_framework import routers # All this for our new version of API v2
+from rest_framework import routers  # All this for our new version of API v2
 
 from blog import views
 from blog import api
@@ -32,20 +31,19 @@ router.register('posts', api.PostViewSet)
 router.register('comments', api.CommentViewSet)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'', include('blog.urls')),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/v1/posts/', include('blog.api_url')),
-    url(r'^api/v2/', include(router.urls, namespace='apiv2')),
+                  url(r'^admin/', admin.site.urls),
+                  url(r'', include('blog.urls')),
+                  url(r'^accounts/', include('allauth.urls')),
+                  url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+                  url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+                  url(r'^api/v1/posts/', include('blog.api_url')),
+                  url(r'^api/v2/', include(router.urls)),
 
-             ]   + static(
-                settings.MEDIA_URL,
-                    document_root=settings.MEDIA_ROOT) + static(
-                settings.STATIC_URL,
-                    document_root=settings.STATIC_ROOT)
-
+              ] + static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT) + static(
+    settings.STATIC_URL,
+    document_root=settings.STATIC_ROOT)
 
 handler500 = views.error_500
 handler404 = views.error_404

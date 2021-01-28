@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.test import TestCase
-from django.test import Client
+from django.test import Client, TestCase
 from django.urls import reverse
+
 from blog.models import Post
+
 
 class TestPostModel(TestCase):
 
