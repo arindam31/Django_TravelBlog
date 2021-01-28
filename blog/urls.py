@@ -2,7 +2,6 @@
 This module contains all URLs for app blog.
 """
 
-from django.conf import settings
 from django.conf.urls import url
 
 from . import views
@@ -25,8 +24,3 @@ urlpatterns = [
 		views.city_post,
 		name='city_details'),
 ]
-
-if settings.DEBUG:
-	urlpatterns += [
-		url('^error/404/$', views.error_404, name='404page'),
-		url('^error/500/$', views.error_500, name='500page')]

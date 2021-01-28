@@ -45,9 +45,6 @@ urlpatterns = [
     settings.STATIC_URL,
     document_root=settings.STATIC_ROOT)
 
-handler500 = views.error_500
-handler404 = views.error_404
-
 # To change the admin default title
 admin.site.site_header = "TheBongTravellers !"
 admin.site.site_title = "TheBongTravellers !"
