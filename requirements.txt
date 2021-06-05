@@ -5,7 +5,7 @@ cffi==1.14.4
 chardet==4.0.0
 cryptography==3.3.2
 defusedxml==0.6.0
-Django==3.1.5
+Django==3.1.9
 django-allauth==0.44.0
 django-ckeditor==6.0.0
 django-crispy-forms==1.10.0
